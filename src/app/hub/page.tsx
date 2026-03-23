@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/headers'
 import Link from 'next/link'
@@ -352,6 +353,11 @@ export default async function HubPage() {
                     ? 'AUDITOR'
                     : 'USUARIO'
 
+  const userDisplayName = profile?.full_name || user?.email?.split('@')[0] || 'Usuario'
+  const sessionContext = [profile?.position || null, clientIp !== '—' ? `Nodo ${clientIp}` : null]
+    .filter(Boolean)
+    .join(' · ')
+
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.12),_transparent_22%),linear-gradient(180deg,#0f172a_0%,#111827_38%,#0f172a_100%)]">
       {/* Header fijo */}
@@ -360,9 +366,11 @@ export default async function HubPage() {
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-6 min-w-0">
               <div className="flex items-center gap-3 flex-shrink-0">
-                <img
+                <Image
                   src="/ziii-logo.png"
                   alt="ZIII Living"
+                  width={40}
+                  height={40}
                   className="h-10 w-10 object-contain rounded-xl bg-white shadow-lg shadow-slate-900/40"
                 />
                 <div className="leading-tight">
@@ -384,7 +392,7 @@ export default async function HubPage() {
                 <div className="min-w-0">
                   <div className="flex items-center gap-3 min-w-0">
                     <p className="text-lg font-semibold text-white truncate" title={profile?.full_name || user?.email || ''}>
-                      {profile?.full_name || user?.email?.split('@')[0] || 'Usuario'}
+                      {userDisplayName}
                     </p>
                     <span className="flex-shrink-0 inline-flex items-center rounded-full border border-violet-400/30 bg-violet-500/20 px-2.5 py-0.5 text-[11px] font-bold text-violet-200 uppercase tracking-wide">
                       {roleLabel}
@@ -428,40 +436,47 @@ export default async function HubPage() {
               </div>
               <div className="space-y-2">
                 <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                  Un hub más sobrio, más claro y con mejor jerarquía para operar toda la plataforma.
+                  Opera todo el ecosistema desde una sola capa clara, rápida y sin ruido repetido.
                 </h1>
                 <p className="max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
-                  Reúne tus módulos habilitados en una sola vista, con lectura inmediata del contexto de usuario, accesos
-                  disponibles y actividad reciente sin alterar la navegación ni la estructura base del producto.
+                  Tus módulos habilitados, accesos operativos y actividad reciente se concentran aquí con prioridad en la
+                  navegación diaria, no en repetir los datos de sesión que ya viven en el encabezado.
                 </p>
               </div>
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <div className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm text-slate-200">
-                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                  {accessibleModules.length} módulos disponibles
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-xl border border-slate-700 bg-slate-900/60 px-4 py-2 text-sm text-slate-200">
-                  <span className="h-2 w-2 rounded-full bg-sky-400" />
-                  {recentActivities?.length || 0} movimientos recientes
+              <div className="rounded-2xl border border-slate-800/80 bg-slate-950/35 p-4 backdrop-blur-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Resumen operativo</p>
+                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-300">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                    {accessibleModules.length} módulos habilitados
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1">
+                    <span className="h-2 w-2 rounded-full bg-sky-400" />
+                    {recentActivities?.length || 0} movimientos recientes
+                  </span>
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1">
+                    <span className="h-2 w-2 rounded-full bg-violet-400" />
+                    {sessionContext || 'Sesión activa lista para operar'}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
               <div className="rounded-2xl border border-slate-700/80 bg-slate-900/65 p-4 backdrop-blur-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Rol activo</p>
-                <p className="mt-2 text-lg font-semibold text-white">{roleLabel}</p>
-                <p className="mt-1 text-sm text-slate-400">Sesión lista para operar según permisos y contexto.</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Cobertura del hub</p>
+                <p className="mt-2 text-2xl font-semibold text-white">{accessibleModules.length}</p>
+                <p className="mt-1 text-sm text-slate-400">Accesos directos disponibles según permisos y preferencias visibles.</p>
               </div>
               <div className="rounded-2xl border border-slate-700/80 bg-slate-900/65 p-4 backdrop-blur-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Usuario</p>
-                <p className="mt-2 text-lg font-semibold text-white truncate">{profile?.full_name || user?.email?.split('@')[0] || 'Usuario'}</p>
-                <p className="mt-1 text-sm text-slate-400 truncate">{user?.email || '—'}</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Actividad reciente</p>
+                <p className="mt-2 text-2xl font-semibold text-white">{recentActivities?.length || 0}</p>
+                <p className="mt-1 text-sm text-slate-400">Movimientos detectados en tu bitácora más reciente.</p>
               </div>
               <div className="rounded-2xl border border-violet-500/20 bg-violet-500/10 p-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-200">Nodo</p>
-                <p className="mt-2 text-lg font-semibold text-white">{clientIp}</p>
-                <p className="mt-1 text-sm text-violet-100/80">Origen de la sesión actual</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-200">Enfoque</p>
+                <p className="mt-2 text-lg font-semibold text-white">{accessibleModules[0]?.name || 'Inicio'}</p>
+                <p className="mt-1 text-sm text-violet-100/80">El primer acceso visible marca tu ruta principal de trabajo.</p>
               </div>
             </div>
           </div>

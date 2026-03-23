@@ -178,7 +178,7 @@ const HubProfesionalLight = () => {
           <div className="flex items-center gap-4 overflow-hidden">
             <img 
               src="/ziii-logo.png"
-              alt="ZIII HoS"
+              alt="ZIII Living"
               className={`object-contain flex-shrink-0 transition-all duration-300 ${sidebarOpen ? 'w-12 h-12' : 'w-10 h-10'}`}
             />
             <div className={`transition-opacity duration-300 ${!sidebarOpen && 'opacity-0'}`}>
@@ -186,7 +186,7 @@ const HubProfesionalLight = () => {
                 ZIII
               </span>
               <span className="text-gray-500 text-xs font-medium tracking-wider">
-                Hospitality OS
+                Gestion Comunitaria
               </span>
             </div>
           </div>

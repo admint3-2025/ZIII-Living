@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 import KBAdminView from './KBAdminView'
 
 export const metadata = {
-  title: 'Base de Conocimientos - Administración | ZIII HoS',
+  title: 'Base de Conocimientos - Administración | ZIII Living',
   description: 'Gestiona artículos de la base de conocimientos: aprueba, rechaza o edita artículos generados automáticamente.',
 }
 

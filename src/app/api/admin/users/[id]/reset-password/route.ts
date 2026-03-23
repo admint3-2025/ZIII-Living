@@ -74,7 +74,7 @@ export async function POST(
   if (smtpConfigured) {
     try {
       const tpl = temporaryPasswordEmailTemplate({
-        appName: 'ZIII HoS',
+        appName: 'ZIII Living',
         userName: fullName,
         userEmail: email,
         temporaryPassword: tempPassword,

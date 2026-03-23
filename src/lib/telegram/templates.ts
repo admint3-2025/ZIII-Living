@@ -212,7 +212,7 @@ ${renderDetailLink(data.detailUrl, 'Revisar ticket')}
 export function formatTelegramMessage(template: TelegramNotificationTemplate): string {
   const icon = template.icon ?? '📬'
 
-  return `${icon} <b>ZIII HoS</b>
+  return `${icon} <b>ZIII Living</b>
 
 ${template.message}
 

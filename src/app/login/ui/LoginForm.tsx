@@ -39,7 +39,7 @@ export default function LoginForm() {
           router.replace('/hub')
           router.refresh()
         }
-      } catch (e: any) {
+      } catch {
         if (!cancelled) {
           setError(
             '⚠️ No se pudo recuperar la sesión automáticamente. Intenta iniciar sesión de nuevo o abre /login?clear=1 para limpiar cookies.'
@@ -60,7 +60,7 @@ export default function LoginForm() {
     setError(null)
     setBusy(true)
 
-    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
     setBusy(false)
     if (error) {
       // Record failed login attempt (best-effort)
@@ -156,7 +156,7 @@ export default function LoginForm() {
   return (
     <form onSubmit={mode === 'login' ? onSubmit : onForgot} className="space-y-5">
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">Correo</label>
+        <label className="mb-2 block text-sm font-medium text-slate-700">Correo</label>
         <input
           className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all duration-200"
           value={email}
@@ -170,7 +170,7 @@ export default function LoginForm() {
 
       {mode === 'login' ? (
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Contraseña</label>
+          <label className="mb-2 block text-sm font-medium text-slate-700">Contraseña</label>
           <input
             className="w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-600/20 focus:border-blue-600 transition-all duration-200"
             value={password}

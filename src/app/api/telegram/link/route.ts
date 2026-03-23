@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
       `
 ✅ <b>¡Vinculación exitosa!</b>
 
-Tu cuenta está conectada al sistema de notificaciones ZIII-Hos.
+Tu cuenta está conectada al sistema de notificaciones ZIII Living.
 
 Ahora recibirás notificaciones aquí sobre:
 🚨 Inspecciones críticas

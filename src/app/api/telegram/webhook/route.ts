@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       const welcomeMessage = `
 👋 ¡Hola ${firstName}!
 
-Bienvenido al sistema de notificaciones ZIII-Hos.
+Bienvenido al sistema de notificaciones ZIII Living.
 
 Para vincular tu cuenta, necesitas:
 1. Ir a la app web
@@ -84,7 +84,7 @@ Comandos disponibles:
     // Comando: /help
     if (text === '/help') {
       const helpMessage = `
-📖 <b>AYUDA - Notificaciones ZIII-Hos</b>
+📖 <b>AYUDA - Notificaciones ZIII Living</b>
 
 Este bot te enviará notificaciones en tiempo real sobre:
 ✅ Inspecciones críticas

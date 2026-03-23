@@ -137,7 +137,7 @@ export default async function DemoHubPremiumPage() {
                 Centro de Trabajo
               </h1>
               <p className="text-[10px] text-blue-400 font-bold uppercase tracking-[0.5em] mt-1">
-                Hospitality Operations System
+                Community Operations System
               </p>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default async function DemoHubPremiumPage() {
               A
             </div>
             <div className="flex flex-col">
-              <span className="text-xs font-black text-white uppercase tracking-tight">Admin ZIII HoS</span>
+              <span className="text-xs font-black text-white uppercase tracking-tight">Admin ZIII Living</span>
               <span className="text-[10px] text-slate-500 font-mono tracking-tighter">IP: 10.10.1.7 • ONLINE</span>
             </div>
             <div className="flex gap-1 ml-4 border-l border-white/10 pl-4">
@@ -300,7 +300,7 @@ export default async function DemoHubPremiumPage() {
           <div className="flex items-center gap-12 text-center md:text-right">
             <div className="flex flex-col items-center md:items-end">
               <span className="text-[9px] font-black text-slate-700 uppercase tracking-widest mb-1">
-                Sistema de Operaciones Hoteleras
+                Sistema de Operacion Comunitaria
               </span>
               <span className="text-xs font-mono text-slate-500 tracking-tighter uppercase">v2.1.0-GOLD-STABLE</span>
             </div>
@@ -314,7 +314,7 @@ export default async function DemoHubPremiumPage() {
                 unoptimized
                 className="h-7 w-auto opacity-20 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500 cursor-pointer"
               />
-              <span className="text-[8px] font-bold text-slate-700 uppercase tracking-widest">© 2026 ZIII HoS</span>
+              <span className="text-[8px] font-bold text-slate-700 uppercase tracking-widest">© 2026 ZIII Living</span>
             </div>
           </div>
         </footer>

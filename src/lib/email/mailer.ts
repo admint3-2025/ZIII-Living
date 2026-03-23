@@ -36,7 +36,7 @@ function normalizeFrom(fromRaw: string, fallbackEmail: string) {
     return trimmed
   }
   // If only a display name was provided, compose with SMTP_USER.
-  const safeName = trimmed.replaceAll('"', '').trim() || 'ZIII HoS'
+  const safeName = trimmed.replaceAll('"', '').trim() || 'ZIII Living'
   return `${safeName} <${fallbackEmail}>`
 }
 

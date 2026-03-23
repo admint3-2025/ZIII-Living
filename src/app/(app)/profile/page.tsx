@@ -5,7 +5,7 @@ import { getAvatarInitial } from '@/lib/ui/avatar'
 import TelegramLinkCard from './ui/TelegramLinkCard'
 
 export const metadata = {
-  title: 'Mi Perfil | ZIII HoS',
+  title: 'Mi Perfil | ZIII Living',
   description: 'Configuración de perfil y cambio de contraseña',
 }
 

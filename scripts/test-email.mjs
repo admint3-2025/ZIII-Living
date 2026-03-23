@@ -60,7 +60,7 @@ console.log(`📨 Enviando email de prueba a: ${testEmail}`)
 const mailOptions = {
   from: `${smtpConfig.from} <${smtpConfig.user}>`,
   to: testEmail,
-  subject: 'Prueba de notificaciones - ZIII HoS',
+  subject: 'Prueba de notificaciones - ZIII Living',
   text: 'Este es un correo de prueba del sistema de notificaciones del Helpdesk.',
   html: `
   <div style="font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial; background:#f9fafb; padding:24px;">
@@ -71,7 +71,7 @@ const mailOptions = {
 
       <div style="padding:20px;">
         <p style="margin:0 0 16px 0; font-size:14px; color:#374151; line-height:1.6;">
-          Este es un correo de prueba del sistema de notificaciones del <strong>ZIII HoS</strong>.
+          Este es un correo de prueba del sistema de notificaciones del <strong>ZIII Living</strong>.
         </p>
 
         <div style="margin:20px 0; padding:16px; background:#f3f4f6; border-radius:8px; border-left:4px solid #4f46e5;">

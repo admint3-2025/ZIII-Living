@@ -5,7 +5,7 @@ import BEOPdfThumbnail from '@/components/BEOPdfThumbnail'
 import PageHeader, { SectionTitle } from '@/components/ui/PageHeader'
 
 export const metadata = {
-  title: 'Dashboard BEO | ZIII HoS',
+  title: 'Dashboard BEO | ZIII Living',
   description: 'Gestión y seguimiento de eventos - Banquet Event Orders',
 }
 

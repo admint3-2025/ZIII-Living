@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Suspense } from 'react'
 import LoginForm from './ui/LoginForm'
 
@@ -20,25 +21,27 @@ export default async function LoginPage() {
 
         <div className="relative z-10">
           <div className="flex items-center gap-4">
-            <img
+            <Image
               src="/ziii-logo.png"
-              alt="ZIII HoS"
+              alt="ZIII Living"
+              width={56}
+              height={56}
               className="h-14 w-14 object-contain"
             />
             <span className="inline-flex items-center gap-2 rounded-full bg-emerald-500/10 px-4 py-2 text-xs font-semibold tracking-wider text-emerald-200 border border-emerald-500/20">
               <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              HOSPITALITY SUITE
+              COMMUNITY OPERATIONS
             </span>
           </div>
 
           <h1 className="mt-10 text-4xl xl:text-5xl font-extrabold tracking-tight text-white leading-tight">
             Plataforma integral
             <br />
-            <span className="text-cyan-300">para Hospitalidad</span>
+            <span className="text-cyan-300">para comunidades residenciales</span>
           </h1>
           <p className="mt-6 max-w-xl text-base xl:text-lg leading-relaxed text-slate-300">
-            ERP modular especializado en hoteles: gestión de activos, mantenimiento, inspecciones, administración y service desk bajo
-            un solo sistema corporativo.
+            Opera administración, residentes, accesos, mantenimiento, finanzas y soporte desde una sola capa de control,
+            con trazabilidad completa para propiedades y equipos operativos.
           </p>
 
           <div className="mt-10 space-y-6 max-w-xl">
@@ -49,9 +52,9 @@ export default async function LoginPage() {
                 </svg>
               </div>
               <div>
-                <div className="text-sm font-semibold text-white">Operaciones Hoteleras Integradas</div>
+                <div className="text-sm font-semibold text-white">Operación residencial centralizada</div>
                 <div className="mt-1 text-sm text-slate-300">
-                  Gestión centralizada de inventarios IT y mantenimiento, usuarios, sedes y operación corporativa multisede
+                  Administración de propiedades, residentes, activos, usuarios y operación multisede en una sola vista.
                 </div>
               </div>
             </div>
@@ -63,10 +66,9 @@ export default async function LoginPage() {
                 </svg>
               </div>
               <div>
-                <div className="text-sm font-semibold text-white">Planeación y Control Anual</div>
+                <div className="text-sm font-semibold text-white">Calendarios, reservas y seguimiento</div>
                 <div className="mt-1 text-sm text-slate-300">
-                  Inventarios, mantenimientos preventivos, inspecciones programadas y seguimiento operativo con calendarios integrados y
-                  seguimiento de cumplimiento
+                  Mantenimientos, amenidades, visitas e inspecciones con reglas claras, evidencia y visibilidad para administración.
                 </div>
               </div>
             </div>
@@ -78,10 +80,9 @@ export default async function LoginPage() {
                 </svg>
               </div>
               <div>
-                <div className="text-sm font-semibold text-white">Trazabilidad y Auditoría Corporativa</div>
+                <div className="text-sm font-semibold text-white">Seguridad, control y transparencia</div>
                 <div className="mt-1 text-sm text-slate-300">
-                  Control total desde nivel corporativo a operaciones de cada propiedad con historial completo, reportes ejecutivos y
-                  cumplimiento normativo
+                  Bitácoras, auditoría, roles y contexto operativo para cada sesión, movimiento y módulo del ecosistema Living.
                 </div>
               </div>
             </div>
@@ -91,15 +92,15 @@ export default async function LoginPage() {
         <div className="relative z-10 pt-10 border-t border-white/10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs text-slate-300">
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            <span>Multitenancia Corporativa</span>
+            <span>Propiedades y comunidades</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            <span>Control Total por Roles</span>
+            <span>Permisos por rol</span>
           </div>
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-            <span>Trazabilidad Completa</span>
+            <span>Trazabilidad completa</span>
           </div>
         </div>
       </section>
@@ -108,9 +109,9 @@ export default async function LoginPage() {
       <section className="flex-1 flex items-center justify-center p-6 lg:p-12 bg-slate-50">
         <div className="w-full max-w-md">
           <div className="flex flex-col items-center">
-            <img src="/ziii-logo.png" alt="ZIII HoS" className="h-16 w-16 object-contain" />
-            <h2 className="mt-6 text-xl font-bold text-slate-900">Bienvenido a ZIII HoS</h2>
-            <p className="mt-1 text-sm text-slate-500">Plataforma integral para gestión hotelera corporativa</p>
+            <Image src="/ziii-logo.png" alt="ZIII Living" width={64} height={64} className="h-16 w-16 object-contain" />
+            <h2 className="mt-6 text-xl font-bold text-slate-900">Bienvenido a ZIII Living</h2>
+            <p className="mt-1 text-sm text-slate-500">Plataforma integral para gestión comunitaria y residencial</p>
           </div>
 
           <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-7">
@@ -120,11 +121,11 @@ export default async function LoginPage() {
           </div>
 
           <div className="mt-6 text-center text-xs text-slate-400">
-            Sistema ERP modular: Assets • Mantenimiento • Inspecciones • Administración • Service Desk
+            Administración • Residentes • Finanzas • Accesos • Mantenimiento • Service Desk
           </div>
           <div className="mt-3 flex items-center justify-center gap-2 text-xs text-slate-400">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            <span>Sistema corporativo seguro y multitenancia</span>
+            <span>Operación segura, multirol y lista para comunidades</span>
           </div>
         </div>
       </section>

@@ -3,7 +3,7 @@ import { createSupabaseServerClient } from '@/lib/supabase/server'
 import BEOTicketForm from '@/components/BEOTicketForm'
 
 export const metadata = {
-  title: 'Crear Ticket BEO | ZIII HoS',
+  title: 'Crear Ticket BEO | ZIII Living',
   description: 'Crear solicitud técnica basada en BEO (Banquet Event Order)',
 }
 

@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Ropería | Ama de Llaves | ZIII HoS',
+  title: 'Ropería | Ama de Llaves | ZIII Living',
 }
 
 export default function HousekeepingLaundryPage() {

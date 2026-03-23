@@ -61,7 +61,7 @@ export async function GET(
     doc.setTextColor(255, 255, 255)
     doc.setFontSize(24)
     doc.setFont('helvetica', 'bold')
-    doc.text('ZIII HoS', 15, 20)
+    doc.text('ZIII Living', 15, 20)
     
     doc.setFontSize(10)
     doc.setFont('helvetica', 'normal')
@@ -361,7 +361,7 @@ export async function GET(
       doc.setTextColor(128, 128, 128)
       doc.setFont('helvetica', 'italic')
       doc.text(
-        'Este documento fue generado automáticamente por ZIII HoS - Sistema de Gestión de Activos',
+        'Este documento fue generado automáticamente por ZIII Living - Sistema de Gestión de Activos',
         105,
         285,
         { align: 'center' }

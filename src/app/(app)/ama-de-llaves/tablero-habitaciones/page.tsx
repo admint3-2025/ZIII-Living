@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation';
 import RoomBoardClient from './ui/RoomBoardClient';
 
 export const metadata = {
-  title: 'Tablero de Habitaciones | ZIII HoS',
+  title: 'Tablero de Habitaciones | ZIII Living',
   description: 'Vista consolidada del estado operativo de habitaciones en todas las propiedades',
 };
 

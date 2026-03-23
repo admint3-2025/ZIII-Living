@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Plan Anual | Ama de Llaves | ZIII HoS',
+  title: 'Plan Anual | Ama de Llaves | ZIII Living',
 }
 
 type Pillar = {

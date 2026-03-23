@@ -100,7 +100,7 @@ async function buildPDF(data: DisposalData, folio: string, verificationCode: str
   doc.setTextColor(255, 255, 255)
   doc.setFontSize(16)
   doc.setFont('helvetica', 'bold')
-  doc.text('ZIII HOS', margin + 28, 14)
+  doc.text('ZIII Living', margin + 28, 14)
   
   doc.setFontSize(9)
   doc.setFont('helvetica', 'normal')

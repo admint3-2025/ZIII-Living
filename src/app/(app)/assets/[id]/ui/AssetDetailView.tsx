@@ -398,7 +398,7 @@ export default function AssetDetailView({
         doc.setTextColor(255, 255, 255)
         doc.setFont('helvetica', 'bold')
         doc.setFontSize(16)
-        doc.text('ZIII HoS', 32, 15)
+        doc.text('ZIII Living', 32, 15)
         doc.setFont('helvetica', 'normal')
         doc.setFontSize(9)
         doc.text(subtitle, 32, 20)
@@ -685,7 +685,7 @@ export default function AssetDetailView({
         doc.setFont('helvetica', 'italic')
         doc.setFontSize(8)
         doc.setTextColor(107, 114, 128)
-        doc.text('ZIII HoS - Documento generado automáticamente', 15, 292)
+        doc.text('ZIII Living - Documento generado automáticamente', 15, 292)
         doc.text(`Página ${i} de ${pages}`, 195, 292, { align: 'right' })
       }
 
