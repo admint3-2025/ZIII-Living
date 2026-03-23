@@ -105,7 +105,13 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/admin') ||
     pathname.startsWith('/mantenimiento') ||
     pathname.startsWith('/beo') ||
-    pathname.startsWith('/corporativo')
+    pathname.startsWith('/corporativo') ||
+    pathname.startsWith('/finanzas') ||
+    pathname.startsWith('/residentes') ||
+    pathname.startsWith('/control-acceso') ||
+    pathname.startsWith('/reservas') ||
+    pathname.startsWith('/votaciones') ||
+    pathname.startsWith('/mi-portal')
 
   // IMPORTANT: do not call Supabase auth methods here.
   // Parse the session from cookies to avoid refresh-token rotation races.
@@ -162,7 +168,13 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith('/admin') ||
     pathname.startsWith('/mantenimiento') ||
     pathname.startsWith('/beo') ||
-    pathname.startsWith('/corporativo')
+    pathname.startsWith('/corporativo') ||
+    pathname.startsWith('/finanzas') ||
+    pathname.startsWith('/residentes') ||
+    pathname.startsWith('/control-acceso') ||
+    pathname.startsWith('/reservas') ||
+    pathname.startsWith('/votaciones') ||
+    pathname.startsWith('/mi-portal')
   if (isAppRoute) {
     // Verificar solo la cookie de sesión
     if (!hasSessionCookie) {
@@ -190,6 +202,55 @@ export async function middleware(request: NextRequest) {
       redirectUrl.pathname = '/corporativo/dashboard'
       return NextResponse.redirect(redirectUrl)
     }
+
+    // FINANZAS: solo admin y corporate_admin
+    if (pathname.startsWith('/finanzas')) {
+      if (!userId) {
+        return NextResponse.redirect(new URL('/login', request.url))
+      }
+      const { data: profileFin } = await supabase.from('profiles').select('role').eq('id', userId).single()
+      const roleF = profileFin?.role
+      if (roleF !== 'admin' && roleF !== 'corporate_admin') {
+        return NextResponse.redirect(new URL('/hub', request.url))
+      }
+    }
+
+    // RESIDENTES: solo admin y corporate_admin
+    if (pathname.startsWith('/residentes')) {
+      if (!userId) {
+        return NextResponse.redirect(new URL('/login', request.url))
+      }
+      const { data: profileRes } = await supabase.from('profiles').select('role').eq('id', userId).single()
+      const roleR = profileRes?.role
+      if (roleR !== 'admin' && roleR !== 'corporate_admin') {
+        return NextResponse.redirect(new URL('/hub', request.url))
+      }
+    }
+
+    // CONTROL-ACCESO: admin, corporate_admin y security_guard
+    if (pathname.startsWith('/control-acceso')) {
+      if (!userId) {
+        return NextResponse.redirect(new URL('/login', request.url))
+      }
+      const { data: profileAcc } = await supabase.from('profiles').select('role').eq('id', userId).single()
+      const roleA = profileAcc?.role
+      if (roleA !== 'admin' && roleA !== 'corporate_admin' && roleA !== 'security_guard') {
+        return NextResponse.redirect(new URL('/hub', request.url))
+      }
+    }
+
+    // MI-PORTAL: accesible por resident, admin y corporate_admin
+    if (pathname.startsWith('/mi-portal')) {
+      if (!userId) {
+        return NextResponse.redirect(new URL('/login', request.url))
+      }
+      const { data: profileMp } = await supabase.from('profiles').select('role').eq('id', userId).single()
+      const roleM = profileMp?.role
+      if (roleM !== 'resident' && roleM !== 'admin' && roleM !== 'corporate_admin') {
+        return NextResponse.redirect(new URL('/hub', request.url))
+      }
+    }
+    // /reservas y /votaciones: cualquier usuario autenticado (el acceso se filtra por rol en el componente)
 
     // Admin routes: diferentes niveles de acceso
     if (pathname.startsWith('/admin')) {

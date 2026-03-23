@@ -67,10 +67,11 @@ type Module = {
 }
 
 const modules: Module[] = [
+  // ── Tickets de servicio (base fuerte del sistema) ──────────────────────────
   {
     id: 'it-helpdesk',
-    name: 'IT - HELPDESK',
-    description: 'Mesa de Ayuda: Soporte Técnico y Desarrollo',
+    name: 'IT · HELPDESK',
+    description: 'Soporte Técnico y Desarrollo: tickets, activos y mesa de ayuda',
     icon: (
       <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -80,15 +81,8 @@ const modules: Module[] = [
       const isAdminOrSupervisor = profile?.role === 'admin' || profile?.role === 'supervisor'
       const isAgent = profile?.role === 'agent_l1' || profile?.role === 'agent_l2'
       const canManageIT = isITAssetCategoryOrUnassigned(profile?.asset_category)
-      
-      // Admin, supervisor IT, o agentes IT van al dashboard
-      if (isAdminOrSupervisor && (profile?.role === 'admin' || canManageIT)) {
-        return '/dashboard'
-      }
-      if (isAgent && canManageIT) {
-        return '/dashboard'
-      }
-      // Usuarios normales (incluido corporate_admin) van a su bandeja de tickets
+      if (isAdminOrSupervisor && (profile?.role === 'admin' || canManageIT)) return '/dashboard'
+      if (isAgent && canManageIT) return '/dashboard'
       return '/tickets?view=mine'
     },
     bgGradient: 'from-blue-500 via-indigo-500 to-purple-600',
@@ -99,7 +93,7 @@ const modules: Module[] = [
   {
     id: 'mantenimiento',
     name: 'MANTENIMIENTO',
-    description: 'Órdenes de Trabajo: Ingeniería, Equipos e Infraestructura',
+    description: 'Órdenes de Trabajo: instalaciones, equipos e infraestructura',
     icon: (
       <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -108,12 +102,7 @@ const modules: Module[] = [
     getHref: (profile: any) => {
       const isAdminOrSupervisor = profile?.role === 'admin' || profile?.role === 'supervisor'
       const canManageMaintenance = isMaintenanceAssetCategory(profile?.asset_category)
-      
-      // Admin o supervisor de mantenimiento van al dashboard
-      if (isAdminOrSupervisor && (profile?.role === 'admin' || canManageMaintenance)) {
-        return '/mantenimiento/dashboard'
-      }
-      // Usuarios normales (incluido corporate_admin) van a su bandeja de tickets
+      if (isAdminOrSupervisor && (profile?.role === 'admin' || canManageMaintenance)) return '/mantenimiento/dashboard'
       return '/mantenimiento/tickets?view=mine'
     },
     bgGradient: 'from-emerald-500 via-teal-500 to-cyan-600',
@@ -121,25 +110,117 @@ const modules: Module[] = [
     textColor: 'text-emerald-900',
     requiredRoles: ['admin', 'supervisor', 'agent_l1', 'agent_l2', 'requester', 'corporate_admin'],
   },
+  // ── Modules comunitarias ───────────────────────────────────────────────────
   {
-    id: 'corporativo',
-    name: 'CORPORATIVO',
-    description: 'Inspecciones, Políticas, Procedimientos',
+    id: 'finanzas',
+    name: 'FINANZAS',
+    description: 'Control financiero: ingresos, egresos, multas, intereses y conciliación bancaria',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    href: '/finanzas',
+    bgGradient: 'from-green-500 via-emerald-500 to-teal-600',
+    iconBg: 'bg-green-100',
+    textColor: 'text-green-900',
+    requiredRoles: ['admin', 'corporate_admin', 'auditor', 'resident'],
+  },
+  {
+    id: 'mi-portal',
+    name: 'MI PORTAL',
+    description: 'Transparencia financiera: consulta tus estados de cuenta y movimientos en tiempo real',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+    ),
+    href: '/mi-portal',
+    bgGradient: 'from-sky-500 via-blue-500 to-indigo-600',
+    iconBg: 'bg-sky-100',
+    textColor: 'text-sky-900',
+    requiredRoles: ['resident'],
+  },
+  {
+    id: 'residentes',
+    name: 'RESIDENTES',
+    description: 'Gestión de propietarios, inquilinos, unidades y directorio del condominio',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
+    href: '/residentes',
+    bgGradient: 'from-violet-500 via-purple-500 to-fuchsia-600',
+    iconBg: 'bg-violet-100',
+    textColor: 'text-violet-900',
+    requiredRoles: ['admin', 'corporate_admin'],
+  },
+  {
+    id: 'control-acceso',
+    name: 'CONTROL DE ACCESO',
+    description: 'Registro de visitantes, lectura de QR y bitácora de entradas y salidas',
     icon: (
       <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
       </svg>
     ),
-    href: '/corporativo/dashboard',
-    bgGradient: 'from-amber-500 via-orange-500 to-red-600',
+    href: '/control-acceso',
+    bgGradient: 'from-red-500 via-rose-500 to-pink-600',
+    iconBg: 'bg-red-100',
+    textColor: 'text-red-900',
+    requiredRoles: ['admin', 'corporate_admin', 'security_guard', 'auditor'],
+  },
+  {
+    id: 'reservas',
+    name: 'RESERVAS',
+    description: 'Reserva de áreas comunes: salón, gimnasio, alberca, asadores y más',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+    ),
+    href: '/reservas',
+    bgGradient: 'from-amber-500 via-orange-500 to-red-500',
     iconBg: 'bg-amber-100',
     textColor: 'text-amber-900',
+    requiredRoles: ['admin', 'corporate_admin', 'resident'],
+  },
+  {
+    id: 'votaciones',
+    name: 'VOTACIONES',
+    description: 'Encuestas y votaciones comunitarias: toma de decisiones transparente',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+      </svg>
+    ),
+    href: '/votaciones',
+    bgGradient: 'from-cyan-500 via-sky-500 to-blue-600',
+    iconBg: 'bg-cyan-100',
+    textColor: 'text-cyan-900',
+    requiredRoles: ['admin', 'corporate_admin', 'resident'],
+  },
+  // ── Gestión y administración ───────────────────────────────────────────────
+  {
+    id: 'corporativo',
+    name: 'CORPORATIVO',
+    description: 'Inspecciones, políticas, procedimientos y normativas',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+    href: '/corporativo/dashboard',
+    bgGradient: 'from-slate-500 via-gray-500 to-zinc-600',
+    iconBg: 'bg-slate-100',
+    textColor: 'text-slate-900',
     requiredRoles: ['admin', 'corporate_admin'],
   },
   {
     id: 'politicas',
-    name: 'POLÍTICAS',
-    description: 'Estándares, Normativas y Procedimientos de la Organización',
+    name: 'REGLAMENTO',
+    description: 'Reglamento interno, normativas y procedimientos de la comunidad',
     icon: (
       <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -149,12 +230,12 @@ const modules: Module[] = [
     bgGradient: 'from-indigo-500 via-violet-500 to-purple-600',
     iconBg: 'bg-indigo-100',
     textColor: 'text-indigo-900',
-    requiredRoles: ['admin', 'corporate_admin', 'supervisor', 'agent_l1', 'agent_l2', 'requester'],
+    requiredRoles: ['admin', 'corporate_admin', 'supervisor', 'agent_l1', 'agent_l2', 'requester', 'resident'],
   },
   {
     id: 'administracion',
     name: 'ADMINISTRACIÓN',
-    description: 'Configuración del Sistema: Usuarios, Permisos, Auditoría',
+    description: 'Configuración del sistema: usuarios, propiedades, permisos y auditoría',
     icon: (
       <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -254,18 +335,22 @@ export default async function HubPage() {
     profile?.role === 'admin'
       ? 'ADMINISTRADOR'
       : profile?.role === 'corporate_admin'
-        ? 'ADMIN CORPORATIVO'
-      : profile?.role === 'agent_l1'
-        ? 'AGENTE L1'
-        : profile?.role === 'agent_l2'
-          ? 'AGENTE L2'
-          : profile?.role === 'supervisor'
-            ? (isMaintenanceAssetCategory(profile?.asset_category) ? 'MANTENIMIENTO - SUPERVISOR' : 'IT - SUPERVISOR')
-            : profile?.role === 'requester'
-              ? 'USUARIO'
-              : profile?.role === 'auditor'
-                ? 'AUDITOR'
-                : 'USUARIO'
+        ? 'GESTOR COMUNITARIO'
+      : profile?.role === 'resident'
+        ? 'RESIDENTE'
+        : profile?.role === 'security_guard'
+          ? 'GUARDIA DE SEGURIDAD'
+          : profile?.role === 'agent_l1'
+            ? 'AGENTE L1'
+            : profile?.role === 'agent_l2'
+              ? 'AGENTE L2'
+              : profile?.role === 'supervisor'
+                ? (isMaintenanceAssetCategory(profile?.asset_category) ? 'SUPERVISOR MANTENIMIENTO' : 'SUPERVISOR IT')
+                : profile?.role === 'requester'
+                  ? 'USUARIO'
+                  : profile?.role === 'auditor'
+                    ? 'AUDITOR'
+                    : 'USUARIO'
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
@@ -277,12 +362,12 @@ export default async function HubPage() {
               <div className="flex items-center gap-3 flex-shrink-0">
                 <img
                   src="/ziii-logo.png"
-                  alt="ZIII HoS"
+                  alt="ZIII Living"
                   className="h-10 w-10 object-contain rounded-xl bg-white shadow-lg shadow-slate-900/40"
                 />
                 <div className="leading-tight">
-                  <p className="text-base font-bold text-white tracking-tight">ZIII HoS</p>
-                  <p className="text-[11px] text-slate-400 font-medium">ITIL v4 Service Desk</p>
+                  <p className="text-base font-bold text-white tracking-tight">ZIII Living</p>
+                  <p className="text-[11px] text-slate-400 font-medium">Gestión Comunitaria</p>
                 </div>
               </div>
 

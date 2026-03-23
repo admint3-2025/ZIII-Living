@@ -266,10 +266,7 @@ export default function AppShellClient({
     if (pathname.startsWith('/admin')) return 'admin'
     if (pathname.startsWith('/politicas')) return 'politicas'
     if (pathname.startsWith('/corporativo')) return 'corporativo'
-    if (pathname.startsWith('/inspections')) return 'corporativo' // Inspecciones RRHH
-    // Reportes: mantener en `Administración` para que el sidebar no cambie
-    // al entrar a reportes específicos (IT/Mantenimiento). El centro
-    // de reportes debe permanecer bajo el contexto de admin visual.
+    if (pathname.startsWith('/inspections')) return 'corporativo'
     if (pathname.startsWith('/reports')) return 'admin'
     if (
       pathname.startsWith('/dashboard') ||
@@ -280,6 +277,13 @@ export default function AppShellClient({
     )
       return 'helpdesk'
     if (pathname.startsWith('/mantenimiento')) return 'mantenimiento'
+    // Módulos comunitarios
+    if (pathname.startsWith('/finanzas')) return 'finanzas'
+    if (pathname.startsWith('/residentes')) return 'residentes'
+    if (pathname.startsWith('/control-acceso')) return 'control-acceso'
+    if (pathname.startsWith('/reservas')) return 'reservas'
+    if (pathname.startsWith('/votaciones')) return 'votaciones'
+    if (pathname.startsWith('/mi-portal')) return 'mi-portal'
     return null
   }, [pathname])
 
@@ -357,21 +361,13 @@ export default function AppShellClient({
       {
         group: 'Mantenimiento',
         items: [
-          // Dashboard solo para admin/supervisor/corporate_admin de mantenimiento
           ...(canManageMaintenance && (isAdminLike || userData.role === 'supervisor' || userData.role === 'corporate_admin' || userData.role === 'agent_l1' || userData.role === 'agent_l2')
             ? ([
                 { id: 'mnt_dashboard', label: 'Dashboard', icon: 'Dashboard', href: '/mantenimiento/dashboard' },
               ] as MenuSection['items'])
             : []),
-          // Mis Tickets y Crear Ticket: visible para TODOS (requester, admin, supervisor)
-          { 
-            id: 'mnt_tickets_mine', 
-            label: 'Mis Tickets', 
-            icon: 'Ticket', 
-            href: '/mantenimiento/tickets?view=mine'
-          },
+          { id: 'mnt_tickets_mine', label: 'Mis Tickets', icon: 'Ticket', href: '/mantenimiento/tickets?view=mine' },
           { id: 'mnt_new_ticket', label: 'Crear Ticket', icon: 'Wrench', href: '/mantenimiento/tickets/new' },
-          // Bandeja y Activos: admin/supervisor/corporate_admin del área de mantenimiento
           ...(canManageMaintenanceAsSupervisor
             ? ([
                 { id: 'mnt_tickets_queue', label: 'Bandeja', icon: 'BarChart', href: '/mantenimiento/tickets?view=queue', roles: ['admin', 'supervisor', 'corporate_admin'] },
@@ -394,7 +390,7 @@ export default function AppShellClient({
     ],
     politicas: [
       {
-        group: 'Políticas',
+        group: 'Reglamento',
         items: [
           { id: 'pol_catalog', label: 'Todas las Políticas', icon: 'Book', href: '/politicas' },
         ],
@@ -412,6 +408,78 @@ export default function AppShellClient({
         ],
       },
     ],
+    // ── Módulos comunitarios ──────────────────────────────────────────────────
+    finanzas: [
+      {
+        group: 'Finanzas',
+        items: [
+          { id: 'fin_home', label: 'Resumen', icon: 'Dashboard', href: '/finanzas' },
+          { id: 'fin_movimientos', label: 'Movimientos', icon: 'Reports', href: '/finanzas/movimientos' },
+          { id: 'fin_multas', label: 'Multas e Intereses', icon: 'Bell', href: '/finanzas/multas', roles: ['admin', 'corporate_admin'] },
+          { id: 'fin_facturacion', label: 'Facturación', icon: 'Audit', href: '/finanzas/facturacion', roles: ['admin', 'corporate_admin'] },
+          { id: 'fin_conciliacion', label: 'Conciliación Bancaria', icon: 'BarChart', href: '/finanzas/conciliacion', roles: ['admin', 'corporate_admin'] },
+          { id: 'fin_reportes', label: 'Reportes Financieros', icon: 'Reports', href: '/finanzas/reportes' },
+        ],
+      },
+    ],
+    residentes: [
+      {
+        group: 'Residentes',
+        items: [
+          { id: 'res_directorio', label: 'Directorio', icon: 'Users', href: '/residentes/directorio' },
+          { id: 'res_unidades', label: 'Unidades', icon: 'Location', href: '/residentes/unidades' },
+          { id: 'res_morosos', label: 'Cuentas Morosas', icon: 'Bell', href: '/residentes/morosos', roles: ['admin', 'corporate_admin'] },
+          { id: 'res_vehiculos', label: 'Vehículos', icon: 'Assets', href: '/residentes/vehiculos' },
+          { id: 'res_mascotas', label: 'Mascotas', icon: 'Check', href: '/residentes/mascotas' },
+        ],
+      },
+    ],
+    'control-acceso': [
+      {
+        group: 'Control de Acceso',
+        items: [
+          { id: 'acc_scanner', label: 'Escanear QR', icon: 'ShieldCheck', href: '/control-acceso/scanner' },
+          { id: 'acc_visitantes', label: 'Visitantes', icon: 'Users', href: '/control-acceso/visitantes' },
+          { id: 'acc_bitacora', label: 'Bitácora', icon: 'Audit', href: '/control-acceso/bitacora' },
+          { id: 'acc_invitaciones', label: 'Invitaciones / QR', icon: 'Ticket', href: '/control-acceso/invitaciones' },
+          { id: 'acc_proveedores', label: 'Proveedores', icon: 'Wrench', href: '/control-acceso/proveedores' },
+          { id: 'acc_alertas', label: 'Alertas', icon: 'Bell', href: '/control-acceso/alertas', roles: ['admin', 'corporate_admin'] },
+        ],
+      },
+    ],
+    reservas: [
+      {
+        group: 'Reservas',
+        items: [
+          { id: 'rsv_home', label: 'Áreas Disponibles', icon: 'Calendar', href: '/reservas' },
+          { id: 'rsv_mis', label: 'Mis Reservas', icon: 'Ticket', href: '/reservas/mis-reservas' },
+          { id: 'rsv_historial', label: 'Historial', icon: 'Reports', href: '/reservas/historial' },
+          { id: 'rsv_areas', label: 'Gestionar Áreas', icon: 'Location', href: '/reservas/areas/gestionar', roles: ['admin', 'corporate_admin'] },
+        ],
+      },
+    ],
+    votaciones: [
+      {
+        group: 'Votaciones',
+        items: [
+          { id: 'vot_home', label: 'Votaciones Activas', icon: 'Audit', href: '/votaciones' },
+          { id: 'vot_resultados', label: 'Resultados', icon: 'BarChart', href: '/votaciones/resultados' },
+          { id: 'vot_nueva', label: 'Nueva Votación', icon: 'Ticket', href: '/votaciones/nueva', roles: ['admin', 'corporate_admin'] },
+        ],
+      },
+    ],
+    'mi-portal': [
+      {
+        group: 'Mi Portal',
+        items: [
+          { id: 'portal_home', label: 'Estado de Cuenta', icon: 'Dashboard', href: '/mi-portal' },
+          { id: 'portal_reservas', label: 'Mis Reservas', icon: 'Calendar', href: '/reservas' },
+          { id: 'portal_votaciones', label: 'Votaciones', icon: 'Audit', href: '/votaciones' },
+          { id: 'portal_tickets', label: 'Mis Solicitudes', icon: 'Ticket', href: '/tickets?view=mine' },
+          { id: 'portal_reglamento', label: 'Reglamento', icon: 'Book', href: '/politicas' },
+        ],
+      },
+    ],
   }
 
   const collapsibleByModule: Record<string, { group: string; menus: CollapsibleMenu[] }[]> = {
@@ -419,6 +487,12 @@ export default function AppShellClient({
     corporativo: [],
     politicas: [],
     admin: [],
+    finanzas: [],
+    residentes: [],
+    'control-acceso': [],
+    reservas: [],
+    votaciones: [],
+    'mi-portal': [],
   }
 
   const activeTopMenu = useMemo(() => {
@@ -591,8 +665,8 @@ export default function AppShellClient({
             </div>
             {sidebarOpen && (
               <div className="animate-in fade-in duration-300 min-w-0">
-                <span className="tracking-wider text-lg block">ZIII <span className="font-light text-indigo-400">HoS</span></span>
-                <p className="text-[10px] text-slate-500 font-normal truncate">ITIL v4 Service Desk</p>
+                <span className="tracking-wider text-lg block">ZIII <span className="font-light text-indigo-400">Living</span></span>
+                <p className="text-[10px] text-slate-500 font-normal truncate">Gestión Comunitaria</p>
               </div>
             )}
           </div>
@@ -765,7 +839,7 @@ export default function AppShellClient({
             </div>
           ))}
 
-          {/* Badge ITIL */}
+          {/* Badge plataforma */}
           {sidebarOpen && (
             <div className="mx-1 mt-4 px-4 py-3 rounded-xl bg-gradient-to-br from-indigo-900/50 to-slate-800 border border-indigo-700/30 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/10 rounded-full -mr-8 -mt-8"></div>
@@ -773,10 +847,10 @@ export default function AppShellClient({
                 <div className="p-1 bg-indigo-600/50 rounded-lg">
                   <Icons.Check className="w-3 h-3 text-indigo-300" />
                 </div>
-                <span className="text-[11px] font-bold">ITIL v4 Based</span>
+                <span className="text-[11px] font-bold">ZIII Living</span>
               </div>
               <p className="relative text-[10px] text-slate-400 leading-relaxed">
-                Sistema profesional de gestión de servicios
+                Gestión comunitaria multi-propiedad
               </p>
             </div>
           )}
