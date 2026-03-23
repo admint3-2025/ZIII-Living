@@ -25,7 +25,6 @@ export default async function ReservasPage() {
 
   const isManager = canManageReservations(profile as any)
   const resident = isResident(profile as any)
-  const availableCount = areas.filter(a => a.available).length
 
   // Áreas comunes de ejemplo (vendrán de la BD)
   const areas = [
@@ -36,6 +35,7 @@ export default async function ReservasPage() {
     { name: 'Cancha de Tenis', icon: '🎾', capacity: 4, available: true, color: 'from-green-500 to-emerald-600' },
     { name: 'Sala de Juntas', icon: '💼', capacity: 12, available: true, color: 'from-slate-500 to-gray-600' },
   ]
+  const availableCount = areas.filter(a => a.available).length
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 px-6 py-6 text-slate-900">
