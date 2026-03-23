@@ -8,7 +8,7 @@ export default function Footer() {
           {/* Logo + Nombre */}
           <div className="flex items-center gap-2">
             <img
-              src="https://systemach-sas.com/logo_ziii/ZIII%20logo.png"
+              src="/ziii-logo.png"
               alt="ZIII"
               className="h-5 w-5 object-contain"
             />

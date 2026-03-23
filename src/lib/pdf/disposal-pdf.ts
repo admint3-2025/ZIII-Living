@@ -81,7 +81,7 @@ async function buildPDF(data: DisposalData, folio: string, verificationCode: str
         reader.readAsDataURL(logoBlob)
       })
     } catch {
-      const logoResponse = await fetch('https://systemach-sas.com/logo_ziii/ZIII%20logo.png')
+      const logoResponse = await fetch('https://ziii.com.mx/logos/ZIIILiving3.png')
       const logoBlob = await logoResponse.blob()
       logoBase64 = await new Promise<string>((resolve) => {
         const reader = new FileReader()

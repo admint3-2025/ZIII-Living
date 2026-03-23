@@ -25,7 +25,7 @@ type ModuleCard = {
   href: string
 }
 
-const logoUrl = 'https://systemach-sas.com/logo_ziii/ZIII%20logo.png'
+const logoUrl = '/ziii-logo.png'
 
 const modules: ModuleCard[] = [
   {
