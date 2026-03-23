@@ -34,7 +34,7 @@ export async function GET() {
   // Construir query base
   let query = supabase
     .from('profiles')
-    .select('id, full_name, role, location_id, locations(name, code)')
+    .select('id, full_name, role, location_id, locations!location_id(name, code)')
     .order('full_name', { ascending: true, nullsFirst: false })
 
   // Aplicar filtro de ubicación si no es admin

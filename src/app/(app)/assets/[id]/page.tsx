@@ -182,7 +182,7 @@ export default async function AssetDetailPage({ params }: { params: Promise<{ id
   if (asset.assigned_to) {
     const { data: profile } = await supabase
       .from('profiles')
-      .select('id, full_name, locations(name)')
+      .select('id, full_name, locations!location_id(name)')
       .eq('id', asset.assigned_to)
       .single()
 

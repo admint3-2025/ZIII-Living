@@ -124,7 +124,7 @@ export default async function MaintenanceAssetDetailPage({
   if (asset.assigned_to_user_id) {
     const { data: userProfile } = await supabase
       .from('profiles')
-      .select('id, full_name, locations(name)')
+      .select('id, full_name, locations!location_id(name)')
       .eq('id', asset.assigned_to_user_id)
       .single()
 
