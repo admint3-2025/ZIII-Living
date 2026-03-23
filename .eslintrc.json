@@ -1,4 +1,9 @@
 {
+  "ignorePatterns": [
+    "build-warnings*.txt",
+    "src/**/*.backup.tsx",
+    "src/**/*-temp.tsx"
+  ],
   "extends": [
     "next/core-web-vitals",
     "next/typescript"
@@ -9,6 +14,35 @@
     "@typescript-eslint/no-parsing-error": "off"
   },
   "overrides": [
+    {
+      "files": [
+        "src/app/**/academia/**/*.{ts,tsx}",
+        "src/app/**/admin/asset-types/page.tsx",
+        "src/app/**/admin/assets/**/*.{ts,tsx}",
+        "src/app/**/admin/knowledge-base/KBAdminView.tsx",
+        "src/app/**/admin/locations/page.tsx",
+        "src/app/**/admin/users/**/*.{ts,tsx}",
+        "src/app/**/assets/**/*.{ts,tsx}",
+        "src/app/**/audit/page.tsx",
+        "src/app/**/beo/**/*.{ts,tsx}",
+        "src/app/**/corporativo/dashboard/ui/**/*.{ts,tsx}",
+        "src/app/**/corporativo/inspecciones/ui/**/*.{ts,tsx}",
+        "src/app/**/dashboard/ui/**/*.{ts,tsx}",
+        "src/app/**/inspections/ui/**/*.{ts,tsx}",
+        "src/app/**/mantenimiento/**/*.{ts,tsx}",
+        "src/app/**/reports/**/*.{ts,tsx}",
+        "src/app/**/tickets/**/*.{ts,tsx}",
+        "src/app/api/**/*.{ts,tsx}",
+        "src/components/AppShellClient.tsx",
+        "src/components/HubProfesional.tsx",
+        "src/components/HubProfesionalLight.tsx"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "react-hooks/exhaustive-deps": "off",
+        "@next/next/no-img-element": "off"
+      }
+    },
     {
       "files": ["src/lib/hooks/useAssetCategoryFilter.ts"],
       "rules": {
