@@ -25,6 +25,7 @@ export default async function ReservasPage() {
 
   const isManager = canManageReservations(profile as any)
   const resident = isResident(profile as any)
+  const availableCount = areas.filter(a => a.available).length
 
   // Áreas comunes de ejemplo (vendrán de la BD)
   const areas = [
@@ -37,112 +38,142 @@ export default async function ReservasPage() {
   ]
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-slate-400 mb-1">
-            <Link href="/hub" className="hover:text-white transition-colors">Hub</Link>
-            <span>/</span>
-            <span className="text-white">Reservas</span>
+    <div className="mx-auto max-w-7xl space-y-6 px-6 py-6 text-slate-900">
+      <section className="relative overflow-hidden rounded-3xl border border-amber-100 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.14),_transparent_32%),linear-gradient(135deg,#fffdf8_0%,#fff6e8_45%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(245,158,11,0.22)] lg:p-7">
+        <div className="absolute -right-10 top-0 h-44 w-44 rounded-full bg-amber-200/40 blur-3xl" />
+        <div className="relative grid gap-4 xl:grid-cols-[1.35fr,0.95fr] xl:items-end">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Link href="/hub" className="font-medium transition-colors hover:text-amber-700">Hub</Link>
+              <span>/</span>
+              <span className="font-semibold text-amber-700">Reservas</span>
+            </div>
+            <span className="inline-flex rounded-full border border-amber-200 bg-white/85 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-amber-700">
+              Amenidades y calendario
+            </span>
+            <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+              Reserva amenidades con una experiencia más propia de un club residencial.
+            </h1>
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
+              Salones, alberca, gimnasio y áreas comunes con lectura inmediata de disponibilidad, capacidad y flujo de uso para
+              residentes y administración.
+            </p>
           </div>
-          <h1 className="text-3xl font-bold text-white">Reservas de Áreas Comunes</h1>
-          <p className="text-slate-400 mt-1">Consulta disponibilidad y reserva los espacios compartidos del condominio</p>
-        </div>
-        {isManager && (
-          <Link
-            href="/reservas/areas/gestionar"
-            className="flex items-center gap-2 bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35" />
-            </svg>
-            Gestionar Áreas
-          </Link>
-        )}
-      </div>
-
-      {/* Calendario rápido / resumen */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {[
-          { label: 'Mis Reservas Activas', value: '0', icon: '📅', color: 'text-amber-400' },
-          { label: 'Reservas Hoy (Total)', value: '0', icon: '📌', color: 'text-blue-400' },
-          { label: 'Áreas Disponibles', value: String(areas.filter(a => a.available).length), icon: '✅', color: 'text-emerald-400' },
-        ].map((stat, i) => (
-          <div key={i} className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-5 flex items-center gap-4">
-            <span className="text-3xl">{stat.icon}</span>
-            <div>
-              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-              <p className="text-sm text-slate-400">{stat.label}</p>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="rounded-2xl border border-white/80 bg-white/85 p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Disponibilidad actual</p>
+              <p className="mt-2 text-3xl font-semibold text-slate-950">{availableCount}/6</p>
+              <p className="mt-1 text-sm text-slate-500">Amenidades disponibles en este momento para reserva inmediata.</p>
+            </div>
+            <div className="rounded-2xl border border-amber-200 bg-amber-500 p-5 text-white shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-amber-100">Perfil de acceso</p>
+              <p className="mt-2 text-2xl font-semibold">{resident ? 'Residente' : 'Administrador'}</p>
+              <p className="mt-1 text-sm text-amber-50">Vista preparada para reservar o administrar reglas, horarios y cupos.</p>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Mis reservas */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-white">Mis Reservas</h2>
-          <Link href="/reservas/historial" className="text-sm text-amber-400 hover:text-amber-300 transition-colors">
-            Ver historial →
+        </div>
+        <div className="relative mt-6 flex flex-wrap items-center gap-3">
+          <Link
+            href="/reservas/historial"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:border-amber-200 hover:text-amber-700"
+          >
+            Ver historial de reservas
           </Link>
-        </div>
-        <div className="bg-slate-800/40 border border-slate-700/50 rounded-xl p-8 text-center">
-          <p className="text-4xl mb-3">📅</p>
-          <p className="text-slate-400">No tienes reservas activas.</p>
-          <p className="text-slate-500 text-sm mt-1">Selecciona un área abajo para hacer tu primera reserva.</p>
-        </div>
-      </div>
-
-      {/* Áreas comunes */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-white">Áreas Disponibles</h2>
           {isManager && (
-            <Link href="/reservas/areas/nueva" className="text-sm text-amber-400 hover:text-amber-300 transition-colors">
-              + Agregar área
+            <Link
+              href="/reservas/areas/gestionar"
+              className="inline-flex items-center gap-2 rounded-xl bg-amber-500 px-4 py-2.5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-amber-600"
+            >
+              Gestionar amenidades
             </Link>
           )}
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {areas.map((area, i) => (
-            <div
-              key={i}
-              className={`group bg-slate-800/40 border ${area.available ? 'border-slate-600/50 hover:border-amber-500/50 cursor-pointer hover:scale-[1.02]' : 'border-slate-700/30 opacity-60'} rounded-xl overflow-hidden transition-all duration-200`}
-            >
-              <div className={`h-2 bg-gradient-to-r ${area.color}`} />
-              <div className="p-5">
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-3xl">{area.icon}</span>
-                    <div>
-                      <h3 className="font-semibold text-white">{area.name}</h3>
-                      <p className="text-xs text-slate-500">Capacidad: {area.capacity} personas</p>
-                    </div>
-                  </div>
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${area.available ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400'}`}>
-                    {area.available ? 'Disponible' : 'Ocupada'}
-                  </span>
-                </div>
-                {area.available && (
-                  <Link
-                    href={`/reservas/nueva?area=${encodeURIComponent(area.name)}`}
-                    className="mt-4 w-full flex items-center justify-center gap-2 bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 border border-amber-600/30 rounded-lg py-2 text-sm font-medium transition-colors"
-                  >
-                    Reservar
-                  </Link>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      </section>
 
-      <div className="bg-amber-950/40 border border-amber-800/40 rounded-xl p-6 text-center">
-        <p className="text-amber-400 font-medium">🚀 Módulo en construcción</p>
-        <p className="text-slate-400 text-sm mt-1">
-          El sistema de reservas con calendario interactivo estará disponible tras aplicar la migración SQL.
-        </p>
-      </div>
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {[
+          { label: 'Mis Reservas Activas', value: '0', icon: '📅', accent: 'bg-amber-50 text-amber-700 border-amber-100' },
+          { label: 'Reservas Hoy', value: '0', icon: '📌', accent: 'bg-blue-50 text-blue-700 border-blue-100' },
+          { label: 'Áreas Disponibles', value: String(availableCount), icon: '✅', accent: 'bg-emerald-50 text-emerald-700 border-emerald-100' },
+        ].map((stat) => (
+          <article key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_16px_36px_-28px_rgba(15,23,42,0.22)]">
+            <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${stat.accent}`}>
+              <span>{stat.icon}</span>
+              {stat.label}
+            </div>
+            <p className="mt-5 text-4xl font-semibold tracking-tight text-slate-950">{stat.value}</p>
+            <p className="mt-1 text-sm text-slate-500">Se actualizará con el calendario real y las reservas aprobadas.</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="grid grid-cols-1 gap-6 xl:grid-cols-[0.92fr,1.4fr]">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_42px_-30px_rgba(15,23,42,0.20)]">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-600">Mi agenda</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-950">Reservas activas</h2>
+            </div>
+            <Link href="/reservas/historial" className="text-sm font-semibold text-amber-700 transition-colors hover:text-amber-800">Historial completo</Link>
+          </div>
+          <div className="mt-6 rounded-2xl border border-dashed border-amber-200 bg-[linear-gradient(180deg,#fffdf8_0%,#ffffff_100%)] p-8 text-center">
+            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-amber-100 text-3xl">📅</div>
+            <p className="mt-4 text-lg font-semibold text-slate-900">No tienes reservas activas.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-500">Selecciona una amenidad disponible y agenda tu primer uso con un flujo más claro y administrable.</p>
+          </div>
+        </div>
+
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_42px_-30px_rgba(15,23,42,0.20)]">
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-amber-600">Portafolio de amenidades</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-950">Áreas comunes disponibles</h2>
+            </div>
+            {isManager && <Link href="/reservas/areas/nueva" className="text-sm font-semibold text-amber-700 transition-colors hover:text-amber-800">Agregar amenidad</Link>}
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {areas.map((area, i) => (
+              <div
+                key={i}
+                className={`group overflow-hidden rounded-2xl border bg-[linear-gradient(180deg,#ffffff_0%,#fafafa_100%)] transition-all duration-200 ${area.available ? 'border-slate-200 hover:-translate-y-1 hover:border-amber-200 hover:shadow-[0_14px_28px_-22px_rgba(245,158,11,0.22)]' : 'border-slate-150 opacity-75'}`}
+              >
+                <div className={`h-2 bg-gradient-to-r ${area.color}`} />
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <span className="text-3xl">{area.icon}</span>
+                      <div>
+                        <h3 className="text-lg font-semibold text-slate-900">{area.name}</h3>
+                        <p className="text-sm text-slate-500">Capacidad para {area.capacity} personas</p>
+                      </div>
+                    </div>
+                    <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${area.available ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'}`}>
+                      {area.available ? 'Libre' : 'Ocupada'}
+                    </span>
+                  </div>
+                  <p className="mt-4 text-sm leading-6 text-slate-500">
+                    {area.available
+                      ? 'Disponible para reserva. Considera reglas, horarios y cupo antes de confirmar.'
+                      : 'Actualmente bloqueada por uso o mantenimiento. Se habilitará al liberarse el espacio.'}
+                  </p>
+                  {area.available ? (
+                    <Link
+                      href={`/reservas/nueva?area=${encodeURIComponent(area.name)}`}
+                      className="mt-5 inline-flex w-full items-center justify-center rounded-xl bg-amber-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-amber-600"
+                    >
+                      Reservar ahora
+                    </Link>
+                  ) : (
+                    <div className="mt-5 inline-flex w-full items-center justify-center rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-400">
+                      Sin disponibilidad inmediata
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

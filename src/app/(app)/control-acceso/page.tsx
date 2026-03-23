@@ -72,94 +72,109 @@ export default async function ControlAccesoPage() {
   const visibleModules = subModules.filter(m => !m.adminOnly || isManager)
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-slate-400 mb-1">
-            <Link href="/hub" className="hover:text-white transition-colors">Hub</Link>
-            <span>/</span>
-            <span className="text-white">Control de Acceso</span>
+    <div className="mx-auto max-w-7xl space-y-6 px-6 py-6 text-slate-900">
+      <section className="relative overflow-hidden rounded-3xl border border-rose-100 bg-[radial-gradient(circle_at_top_left,_rgba(244,63,94,0.14),_transparent_34%),linear-gradient(135deg,#fffdfd_0%,#fff3f5_45%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(244,63,94,0.22)] lg:p-7">
+        <div className="absolute -right-10 top-0 h-44 w-44 rounded-full bg-rose-200/35 blur-3xl" />
+        <div className="relative grid gap-4 xl:grid-cols-[1.35fr,0.95fr] xl:items-end">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Link href="/hub" className="font-medium transition-colors hover:text-rose-700">Hub</Link>
+              <span>/</span>
+              <span className="font-semibold text-rose-700">Control de Acceso</span>
+            </div>
+            <span className="inline-flex rounded-full border border-rose-200 bg-white/85 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-rose-700">
+              Seguridad y operación de acceso
+            </span>
+            <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+              Un panel de acceso que sí parece una consola de operación y vigilancia.
+            </h1>
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
+              Diseñado para guardias y administración: lectura rápida de visitantes, QR, incidencias y bitácora, sin apariencia de
+              demo genérica ni tarjetas grises sin intención.
+            </p>
           </div>
-          <h1 className="text-3xl font-bold text-white">Control de Acceso</h1>
-          <p className="text-slate-400 mt-1">Gestión de visitantes, QR y bitácora de entradas y salidas</p>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="rounded-2xl border border-white/80 bg-white/85 p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Modo operativo</p>
+              <p className="mt-2 text-3xl font-semibold text-slate-950">{isGuard ? 'Guardia' : 'Administración'}</p>
+              <p className="mt-1 text-sm text-slate-500">La interfaz prioriza escaneo, registro en sitio y seguimiento de incidentes.</p>
+            </div>
+            <Link
+              href="/control-acceso/scanner"
+              className="rounded-2xl border border-rose-200 bg-rose-600 p-4 text-white shadow-sm transition-colors hover:bg-rose-700"
+            >
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-rose-100">Acción primaria</p>
+              <p className="mt-2 text-2xl font-semibold">Escanear QR</p>
+              <p className="mt-1 text-sm text-rose-100">Ingreso inmediato de visitantes, residentes e invitaciones.</p>
+            </Link>
+          </div>
         </div>
-        <Link
-          href="/control-acceso/scanner"
-          className="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 3.5V16M4.5 4.5l15 15" />
-          </svg>
-          Escanear QR
-        </Link>
-      </div>
+      </section>
 
-      {/* Estado en tiempo real */}
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
         {[
-          { label: 'Visitantes Activos', value: '0', icon: '👤', color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/30' },
-          { label: 'Entradas Hoy', value: '0', icon: '🟢', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/30' },
-          { label: 'Salidas Hoy', value: '0', icon: '🔴', color: 'text-slate-400', bg: 'bg-slate-500/10 border-slate-500/30' },
-          { label: 'Alertas Activas', value: '0', icon: '🚨', color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/30' },
-        ].map((stat, i) => (
-          <div key={i} className={`border rounded-xl p-5 flex items-center gap-4 ${stat.bg}`}>
-            <span className="text-3xl">{stat.icon}</span>
-            <div>
-              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-              <p className="text-sm text-slate-400">{stat.label}</p>
+          { label: 'Visitantes Activos', value: '0', icon: '👤', accent: 'bg-emerald-50 text-emerald-700 border-emerald-100' },
+          { label: 'Entradas Hoy', value: '0', icon: '🟢', accent: 'bg-blue-50 text-blue-700 border-blue-100' },
+          { label: 'Salidas Hoy', value: '0', icon: '🔴', accent: 'bg-slate-50 text-slate-700 border-slate-100' },
+          { label: 'Alertas Activas', value: '0', icon: '🚨', accent: 'bg-amber-50 text-amber-700 border-amber-100' },
+        ].map((stat) => (
+          <article key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_16px_36px_-28px_rgba(15,23,42,0.22)]">
+            <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${stat.accent}`}>
+              <span>{stat.icon}</span>
+              {stat.label}
             </div>
-          </div>
+            <p className="mt-5 text-4xl font-semibold tracking-tight text-slate-950">{stat.value}</p>
+            <p className="mt-1 text-sm text-slate-500">Se alimentará con la bitácora real de ingresos y salidas.</p>
+          </article>
         ))}
-      </div>
+      </section>
 
-      {/* Acceso rápido para guardias */}
       {isGuard && (
-        <div className="bg-red-950/40 border border-red-700/50 rounded-xl p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-red-600 rounded-lg flex items-center justify-center text-white font-bold">G</div>
+        <section className="rounded-3xl border border-rose-100 bg-[linear-gradient(180deg,#fff6f6_0%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(244,63,94,0.14)]">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <p className="font-semibold text-white">Panel de Guardia</p>
-              <p className="text-sm text-slate-400">Acceso rápido a tus funciones principales</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">Panel táctico</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-950">Acciones rápidas para caseta</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">Consolida las dos tareas más frecuentes del guardia: validar un pase y registrar una visita en sitio.</p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2 lg:w-[420px]">
+              <Link href="/control-acceso/scanner" className="rounded-xl bg-rose-600 px-5 py-4 text-center text-sm font-semibold text-white transition-colors hover:bg-rose-700">
+                Escanear QR
+              </Link>
+              <Link href="/control-acceso/visitantes/nuevo" className="rounded-xl border border-slate-200 bg-white px-5 py-4 text-center text-sm font-semibold text-slate-700 transition-colors hover:border-rose-200 hover:text-rose-700">
+                Registrar visita
+              </Link>
             </div>
           </div>
-          <div className="grid grid-cols-2 gap-3">
-            <Link href="/control-acceso/scanner" className="bg-red-600 hover:bg-red-500 text-white rounded-lg p-4 text-center font-medium transition-colors">
-              📷 Escanear QR
-            </Link>
-            <Link href="/control-acceso/visitantes/nuevo" className="bg-slate-700 hover:bg-slate-600 text-white rounded-lg p-4 text-center font-medium transition-colors">
-              ➕ Registrar Visita
-            </Link>
-          </div>
-        </div>
+        </section>
       )}
 
-      <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Funciones</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_42px_-30px_rgba(15,23,42,0.20)]">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-rose-600">Herramientas de acceso</p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-950">Componentes del centro de vigilancia</h2>
+        </div>
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {visibleModules.map((mod) => (
             <Link
               key={mod.href}
               href={mod.href}
-              className={`group bg-slate-800/40 border ${mod.color} rounded-xl p-6 transition-all duration-200 hover:bg-slate-800/70 hover:scale-[1.02] ${mod.highlight ? 'ring-2 ring-red-500/50' : ''}`}
+              className={`group rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#fff7f8_100%)] p-5 transition-all duration-200 hover:border-rose-200 hover:shadow-[0_14px_28px_-22px_rgba(244,63,94,0.20)] ${mod.highlight ? 'ring-2 ring-rose-200' : ''}`}
             >
-              <div className="flex items-start gap-4">
+              <div className="flex items-start justify-between gap-3">
                 <span className="text-3xl">{mod.icon}</span>
-                <div>
-                  <h3 className="font-semibold text-white group-hover:text-red-300 transition-colors">{mod.title}</h3>
-                  <p className="text-sm text-slate-400 mt-1">{mod.desc}</p>
-                </div>
+                {mod.highlight ? <span className="rounded-full bg-rose-100 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-rose-700">Prioridad</span> : null}
+              </div>
+              <h3 className="mt-5 text-lg font-semibold text-slate-900 transition-colors group-hover:text-rose-700">{mod.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-500">{mod.desc}</p>
+              <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-sm font-semibold text-slate-600 group-hover:text-rose-700">
+                <span>Entrar</span>
+                <span>→</span>
               </div>
             </Link>
           ))}
         </div>
-      </div>
-
-      <div className="bg-red-950/40 border border-red-800/40 rounded-xl p-6 text-center">
-        <p className="text-red-400 font-medium">🚀 Módulo en construcción</p>
-        <p className="text-slate-400 text-sm mt-1">
-          El control de acceso con QR estará operativo tras aplicar la migración SQL de visitantes y accesos.
-        </p>
-      </div>
+      </section>
     </div>
   )
 }

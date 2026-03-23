@@ -42,115 +42,132 @@ export default async function VotacionesPage() {
   ]
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-slate-400 mb-1">
-            <Link href="/hub" className="hover:text-white transition-colors">Hub</Link>
-            <span>/</span>
-            <span className="text-white">Votaciones</span>
-          </div>
-          <h1 className="text-3xl font-bold text-white">Votaciones y Encuestas</h1>
-          <p className="text-slate-400 mt-1">Toma de decisiones comunitarias de forma transparente y democrática</p>
-        </div>
-        {isManager && (
-          <Link
-            href="/votaciones/nueva"
-            className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            Nueva Votación
-          </Link>
-        )}
-      </div>
-
-      {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {[
-          { label: 'Votaciones Activas', value: '1', icon: '🗳️', color: 'text-cyan-400' },
-          { label: 'Participación Promedio', value: '0%', icon: '📊', color: 'text-blue-400' },
-          { label: 'Votaciones Completadas', value: '0', icon: '✅', color: 'text-emerald-400' },
-        ].map((stat, i) => (
-          <div key={i} className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-5 flex items-center gap-4">
-            <span className="text-3xl">{stat.icon}</span>
-            <div>
-              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
-              <p className="text-sm text-slate-400">{stat.label}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Votaciones activas */}
-      <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-white">Votaciones Activas</h2>
-        </div>
-        <div className="space-y-4">
-          {surveysExample.filter(s => s.status === 'active').map((survey) => (
-            <div key={survey.id} className="bg-slate-800/50 border border-cyan-500/30 rounded-xl p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <span className="inline-flex items-center gap-1 text-xs bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded-full mb-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                    Activa
-                  </span>
-                  <h3 className="font-semibold text-white text-lg">{survey.title}</h3>
-                  <p className="text-xs text-slate-500 mt-1">Cierra: {survey.endDate} · {survey.totalVotes} votos</p>
-                </div>
-              </div>
-              <div className="space-y-2 mb-4">
-                {survey.options.map((option, i) => (
-                  <div key={i} className="flex items-center gap-3 bg-slate-700/30 rounded-lg p-3 cursor-pointer hover:bg-slate-700/50 transition-colors group">
-                    <div className="w-4 h-4 rounded-full border-2 border-cyan-500 group-hover:bg-cyan-500/30 transition-colors flex-shrink-0" />
-                    <span className="text-sm text-slate-300 group-hover:text-white transition-colors">{option}</span>
-                    <div className="flex-1 h-1 bg-slate-700 rounded-full ml-2">
-                      <div className="h-full bg-cyan-500/30 rounded-full w-0" />
-                    </div>
-                    <span className="text-xs text-slate-500">0%</span>
-                  </div>
-                ))}
-              </div>
-              <Link
-                href={`/votaciones/${survey.id}`}
-                className="inline-flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              >
-                Votar ahora →
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Borradores (solo admin) */}
-      {isManager && (
-        <div>
-          <h2 className="text-lg font-semibold text-white mb-4">Borradores</h2>
+    <div className="mx-auto max-w-7xl space-y-6 px-6 py-6 text-slate-900">
+      <section className="relative overflow-hidden rounded-3xl border border-sky-100 bg-[radial-gradient(circle_at_top_right,_rgba(14,165,233,0.14),_transparent_34%),linear-gradient(135deg,#fbfeff_0%,#f0f9ff_45%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(14,165,233,0.20)] lg:p-7">
+        <div className="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-cyan-200/35 blur-3xl" />
+        <div className="relative grid gap-4 xl:grid-cols-[1.35fr,0.95fr] xl:items-end">
           <div className="space-y-3">
-            {surveysExample.filter(s => s.status === 'draft').map((survey) => (
-              <div key={survey.id} className="bg-slate-800/30 border border-slate-700/30 rounded-xl p-5 flex items-center justify-between">
-                <div>
-                  <span className="inline-flex text-xs bg-slate-700 text-slate-400 px-2 py-0.5 rounded-full mb-1">Borrador</span>
-                  <h3 className="font-medium text-white">{survey.title}</h3>
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Link href="/hub" className="font-medium transition-colors hover:text-sky-700">Hub</Link>
+              <span>/</span>
+              <span className="font-semibold text-sky-700">Votaciones</span>
+            </div>
+            <span className="inline-flex rounded-full border border-sky-200 bg-white/85 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-sky-700">
+              Decisión colectiva
+            </span>
+            <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+              Votaciones comunitarias con más legitimidad visual y menos sensación de plantilla.
+            </h1>
+            <p className="max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
+              Presenta propuestas, periodos de cierre, participación y resultados de forma más seria para asambleas, decisiones de
+              presupuesto y consultas internas del condominio.
+            </p>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="rounded-2xl border border-white/80 bg-white/85 p-5 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Participación actual</p>
+              <p className="mt-2 text-3xl font-semibold text-slate-950">0%</p>
+              <p className="mt-1 text-sm text-slate-500">La métrica se enriquecerá con votos reales y quórum requerido.</p>
+            </div>
+            {isManager && (
+              <Link href="/votaciones/nueva" className="rounded-2xl border border-sky-200 bg-sky-600 p-4 text-white shadow-sm transition-colors hover:bg-sky-700">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-sky-100">Acción principal</p>
+                <p className="mt-2 text-2xl font-semibold">Nueva votación</p>
+                <p className="mt-1 text-sm text-sky-100">Configura una propuesta, define plazo y publícala a la comunidad.</p>
+              </Link>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        {[
+          { label: 'Votaciones Activas', value: '1', icon: '🗳️', accent: 'bg-sky-50 text-sky-700 border-sky-100' },
+          { label: 'Participación Promedio', value: '0%', icon: '📊', accent: 'bg-blue-50 text-blue-700 border-blue-100' },
+          { label: 'Votaciones Completadas', value: '0', icon: '✅', accent: 'bg-emerald-50 text-emerald-700 border-emerald-100' },
+        ].map((stat) => (
+          <article key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_16px_36px_-28px_rgba(15,23,42,0.22)]">
+            <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${stat.accent}`}>
+              <span>{stat.icon}</span>
+              {stat.label}
+            </div>
+            <p className="mt-5 text-4xl font-semibold tracking-tight text-slate-950">{stat.value}</p>
+            <p className="mt-1 text-sm text-slate-500">Estos datos reflejarán el pulso real de participación de la comunidad.</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="grid grid-cols-1 gap-6 xl:grid-cols-[1.3fr,0.9fr]">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_42px_-30px_rgba(15,23,42,0.20)]">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Proceso activo</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-950">Consultas abiertas</h2>
+          </div>
+          <div className="mt-6 space-y-4">
+            {surveysExample.filter((s) => s.status === 'active').map((survey) => (
+              <article key={survey.id} className="rounded-2xl border border-sky-100 bg-[linear-gradient(180deg,#ffffff_0%,#f7fdff_100%)] p-6 shadow-[0_14px_28px_-22px_rgba(14,165,233,0.16)]">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+                  <div>
+                    <span className="inline-flex items-center gap-2 rounded-full bg-sky-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-sky-700">
+                      <span className="h-2 w-2 rounded-full bg-sky-500" />
+                      Activa
+                    </span>
+                    <h3 className="mt-3 text-xl font-semibold text-slate-950">{survey.title}</h3>
+                    <p className="mt-2 text-sm text-slate-500">Cierre programado: {survey.endDate} · {survey.totalVotes} votos emitidos</p>
+                  </div>
+                  <Link href={`/votaciones/${survey.id}`} className="inline-flex items-center rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-sky-700">
+                    Votar ahora
+                  </Link>
                 </div>
-                <div className="flex gap-2">
-                  <Link href={`/votaciones/${survey.id}/editar`} className="text-xs bg-slate-700 hover:bg-slate-600 text-slate-300 px-3 py-1.5 rounded-lg transition-colors">Editar</Link>
-                  <Link href={`/votaciones/${survey.id}/publicar`} className="text-xs bg-cyan-600 hover:bg-cyan-500 text-white px-3 py-1.5 rounded-lg transition-colors">Publicar</Link>
+                <div className="mt-6 space-y-3">
+                  {survey.options.map((option, i) => (
+                    <div key={i} className="rounded-2xl border border-slate-100 bg-white p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="h-4 w-4 rounded-full border-2 border-sky-500" />
+                        <span className="text-sm font-medium text-slate-700">{option}</span>
+                        <span className="ml-auto text-xs font-semibold text-slate-400">0%</span>
+                      </div>
+                      <div className="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
+                        <div className="h-full w-0 rounded-full bg-sky-500" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
-      )}
 
-      <div className="bg-cyan-950/40 border border-cyan-800/40 rounded-xl p-6 text-center">
-        <p className="text-cyan-400 font-medium">🚀 Módulo en construcción</p>
-        <p className="text-slate-400 text-sm mt-1">
-          El sistema de votaciones con resultados en tiempo real estará disponible tras aplicar la migración SQL.
-        </p>
-      </div>
+        <aside className="space-y-6">
+          {isManager && (
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_42px_-30px_rgba(15,23,42,0.20)]">
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Backoffice</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-950">Borradores</h2>
+              <div className="mt-5 space-y-3">
+                {surveysExample.filter((s) => s.status === 'draft').map((survey) => (
+                  <div key={survey.id} className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                    <span className="rounded-full bg-slate-200 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-600">Borrador</span>
+                    <h3 className="mt-3 font-semibold text-slate-900">{survey.title}</h3>
+                    <div className="mt-4 flex gap-2">
+                      <Link href={`/votaciones/${survey.id}/editar`} className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-semibold text-slate-700 transition-colors hover:border-sky-200 hover:text-sky-700">Editar</Link>
+                      <Link href={`/votaciones/${survey.id}/publicar`} className="rounded-full bg-sky-600 px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-sky-700">Publicar</Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="rounded-3xl border border-sky-100 bg-[linear-gradient(180deg,#f4fbff_0%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(14,165,233,0.12)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-sky-600">Buenas prácticas</p>
+            <h2 className="mt-2 text-2xl font-semibold text-slate-950">Cómo debe leerse una consulta</h2>
+            <div className="mt-5 space-y-4 text-sm leading-6 text-slate-500">
+              <p>Define con claridad el objetivo, el periodo de cierre y si requiere quórum mínimo.</p>
+              <p>Evita preguntas ambiguas: la formulación impacta la legitimidad del resultado.</p>
+              <p>Publica resultados con transparencia y conserva el histórico para la asamblea.</p>
+            </div>
+          </div>
+        </aside>
+      </section>
     </div>
   )
 }

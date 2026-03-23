@@ -121,77 +121,140 @@ export default async function FinanzasPage() {
   const visibleModules = subModules.filter(m => !m.adminOnly || isManager)
 
   return (
-    <div className="p-6 max-w-7xl mx-auto space-y-8">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-slate-400 mb-1">
-            <Link href="/hub" className="hover:text-white transition-colors">Hub</Link>
-            <span>/</span>
-            <span className="text-white">Finanzas</span>
+    <div className="mx-auto max-w-7xl space-y-6 px-6 py-6 text-slate-900">
+      <section className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-[radial-gradient(circle_at_top_left,_rgba(16,185,129,0.14),_transparent_34%),linear-gradient(135deg,#fcfffd_0%,#f2fbf6_42%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(16,185,129,0.25)] lg:p-7">
+        <div className="absolute right-0 top-0 h-44 w-44 rounded-full bg-emerald-300/20 blur-3xl" />
+        <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-teal-200/30 blur-3xl" />
+        <div className="relative flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl space-y-3">
+            <div className="flex items-center gap-2 text-sm text-slate-500">
+              <Link href="/hub" className="font-medium text-slate-500 transition-colors hover:text-emerald-700">Hub</Link>
+              <span>/</span>
+              <span className="font-semibold text-emerald-700">Finanzas</span>
+            </div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-emerald-700">
+              Panorama financiero residencial
+            </div>
+            <div className="space-y-3">
+              <h1 className="max-w-2xl text-3xl font-semibold tracking-tight text-slate-950 sm:text-4xl">
+                Control financiero con lectura ejecutiva y enfoque operativo.
+              </h1>
+              <p className="max-w-2xl text-sm leading-6 text-slate-600 sm:text-base">
+                Supervisa ingresos, egresos, multas, conciliaciones y presupuesto desde una vista clara para administración,
+                comité y residentes con acceso permitido.
+              </p>
+            </div>
           </div>
-          <h1 className="text-3xl font-bold text-white">Control Financiero</h1>
-          <p className="text-slate-400 mt-1">Gestión de ingresos, egresos, multas y conciliación bancaria del condominio</p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:w-[340px]">
+            <div className="rounded-2xl border border-white/80 bg-white/80 p-4 shadow-sm backdrop-blur">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Cobranza estimada</p>
+              <p className="mt-2 text-3xl font-semibold text-slate-950">92%</p>
+              <p className="mt-1 text-sm text-slate-500">Meta mensual de recuperación para cuotas ordinarias.</p>
+            </div>
+            <div className="rounded-2xl border border-emerald-200 bg-emerald-600 p-4 text-white shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-emerald-100">Salud operativa</p>
+              <p className="mt-2 text-3xl font-semibold">Estable</p>
+              <p className="mt-1 text-sm text-emerald-100">Sin alertas críticas y con fondo de reserva protegido.</p>
+            </div>
+          </div>
         </div>
-        {isManager && (
-          <Link
-            href="/finanzas/movimientos/nuevo"
-            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg font-medium transition-colors"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-            Nuevo Movimiento
-          </Link>
-        )}
-      </div>
-
-      {/* KPIs */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {kpis.map((kpi, i) => (
-          <div key={i} className="bg-slate-800/50 border border-slate-700/50 rounded-xl p-5 space-y-3">
-            <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${kpi.color} flex items-center justify-center text-white`}>
-              {kpi.icon}
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-white">{kpi.value}</p>
-              <p className="text-sm font-medium text-slate-300">{kpi.label}</p>
-              <p className="text-xs text-slate-500 mt-0.5">{kpi.sub}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Sub-módulos */}
-      <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Módulos Financieros</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {visibleModules.map((mod) => (
+        <div className="relative mt-6 flex flex-wrap items-center gap-3">
+          {isManager && (
             <Link
-              key={mod.href}
-              href={mod.href}
-              className={`group bg-slate-800/40 border ${mod.color} rounded-xl p-6 transition-all duration-200 hover:bg-slate-800/70 hover:scale-[1.02]`}
+              href="/finanzas/movimientos/nuevo"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white transition-transform duration-200 hover:-translate-y-0.5 hover:bg-emerald-700"
             >
-              <div className="flex items-start gap-4">
-                <span className="text-3xl">{mod.icon}</span>
-                <div>
-                  <h3 className="font-semibold text-white group-hover:text-emerald-300 transition-colors">{mod.title}</h3>
-                  <p className="text-sm text-slate-400 mt-1">{mod.desc}</p>
-                </div>
-              </div>
+              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Registrar movimiento
             </Link>
-          ))}
+          )}
+          <Link
+            href="/finanzas/reportes"
+            className="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition-colors hover:border-emerald-200 hover:text-emerald-700"
+          >
+            Ver reportes ejecutivos
+          </Link>
         </div>
-      </div>
+      </section>
 
-      {/* Coming soon banner */}
-      <div className="bg-emerald-950/40 border border-emerald-800/40 rounded-xl p-6 text-center">
-        <p className="text-emerald-400 font-medium">🚀 Módulo en construcción</p>
-        <p className="text-slate-400 text-sm mt-1">
-          Los movimientos financieros estarán disponibles una vez aplicada la migración de base de datos.
-          Consulta el archivo <code className="bg-slate-800 px-1 rounded text-xs">supabase/migrations/</code> para aplicar el esquema.
-        </p>
-      </div>
+      <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        {kpis.map((kpi, i) => (
+          <article key={i} className="group rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_16px_36px_-28px_rgba(15,23,42,0.22)] transition-transform duration-200 hover:-translate-y-1">
+            <div className="flex items-start justify-between gap-3">
+              <div className={`flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br ${kpi.color} text-white shadow-lg shadow-emerald-500/10`}>
+                {kpi.icon}
+              </div>
+              <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-500">Tiempo real</span>
+            </div>
+            <div className="mt-6 space-y-1">
+              <p className="text-3xl font-semibold tracking-tight text-slate-950">{kpi.value}</p>
+              <p className="text-sm font-semibold text-slate-700">{kpi.label}</p>
+              <p className="text-sm leading-6 text-slate-500">{kpi.sub}</p>
+            </div>
+          </article>
+        ))}
+      </section>
+
+      <section className="grid grid-cols-1 gap-6 xl:grid-cols-[1.5fr,0.9fr]">
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-[0_18px_42px_-30px_rgba(15,23,42,0.20)]">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-emerald-600">Arquitectura del módulo</p>
+              <h2 className="mt-2 text-2xl font-semibold text-slate-950">Circuitos financieros del condominio</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
+                Cada bloque responde a una operación distinta: cobranza, sanciones, facturación y conciliación. La idea es que el
+                administrador pueda leer el estado sin entrar a pantallas secundarias.
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {visibleModules.map((mod) => (
+              <Link
+                key={mod.href}
+                href={mod.href}
+                className="group rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] p-5 transition-all duration-200 hover:border-emerald-200 hover:shadow-[0_14px_28px_-22px_rgba(16,185,129,0.28)]"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <span className="text-3xl">{mod.icon}</span>
+                  <span className="rounded-full bg-slate-100 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">Módulo</span>
+                </div>
+                <h3 className="mt-5 text-lg font-semibold text-slate-900 transition-colors group-hover:text-emerald-700">{mod.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{mod.desc}</p>
+                <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-4 text-sm font-semibold text-slate-600 group-hover:text-emerald-700">
+                  <span>Entrar</span>
+                  <span>→</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+        <aside className="rounded-3xl border border-emerald-100 bg-[linear-gradient(180deg,#f6fffb_0%,#ffffff_100%)] p-6 shadow-[0_18px_42px_-30px_rgba(16,185,129,0.16)]">
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-emerald-600">Lectura rápida</p>
+          <h2 className="mt-2 text-2xl font-semibold text-slate-950">Indicadores que importan</h2>
+          <div className="mt-6 space-y-4">
+            {[
+              ['Morosidad', 'Identifica rápidamente unidades con atrasos antes de comprometer flujo operativo.'],
+              ['Conciliación', 'Cruza movimientos bancarios y elimina diferencias antes del cierre contable.'],
+              ['Presupuesto', 'Aterriza el gasto contra el plan anual del condominio y su fondo de reserva.'],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-2xl border border-emerald-100 bg-white p-4">
+                <p className="font-semibold text-slate-900">{title}</p>
+                <p className="mt-1 text-sm leading-6 text-slate-500">{text}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 rounded-2xl bg-slate-950 p-5 text-white">
+            <p className="text-sm font-semibold">Siguiente etapa</p>
+            <p className="mt-2 text-sm leading-6 text-slate-300">
+              Conecta esta vista a movimientos reales, saldos por unidad y estado de cuenta del fondo de reserva para convertirla
+              en tablero de operación diaria.
+            </p>
+          </div>
+        </aside>
+      </section>
     </div>
   )
 }
