@@ -24,7 +24,6 @@ const DEPARTMENTS: Department[] = [
   { id: 'sistemas', name: 'SISTEMAS' },
   { id: 'marketing', name: 'MARKETING' },
   { id: 'alimentos', name: 'ALIMENTOS Y BEBIDAS' },
-  { id: 'llaves', name: 'AMA DE LLAVES' },
   { id: 'contabilidad', name: 'CONTABILIDAD' },
 ]
 

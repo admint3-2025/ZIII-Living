@@ -23,9 +23,7 @@ type HubVisibleModules = {
   'it-helpdesk'?: boolean
   'mantenimiento'?: boolean
   'inspecciones-rrhh'?: boolean
-  'academia'?: boolean
   'beo'?: boolean
-  'ama-de-llaves'?: boolean
   [key: string]: boolean | undefined
 }
 
@@ -335,7 +333,6 @@ export default function CorporateDashboardClient({ hubModules, isAdmin }: Corpor
   const showIT = isModuleVisible('it-helpdesk')
   const showMaintenance = isModuleVisible('mantenimiento')
   const showInspections = isModuleVisible('inspecciones-rrhh')
-  const showAcademia = isModuleVisible('academia')
 
   // Calcular cuántas columnas mostrar en el grid principal
   const visibleModulesCount = [showIT, showMaintenance, showInspections].filter(Boolean).length
@@ -1120,22 +1117,8 @@ export default function CorporateDashboardClient({ hubModules, isAdmin }: Corpor
           </Link>
         )}
         
-        {/* Academia */}
-        {showAcademia && (
-          <Link
-            href="/academia"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-gray-200 rounded-lg hover:border-purple-300 hover:bg-purple-50 transition-all text-xs font-medium text-gray-700 hover:text-purple-700"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-            </svg>
-            Academia
-          </Link>
-        )}
-        
         {/* Si no hay ningún módulo visible, mostrar mensaje */}
-        {!showIT && !showMaintenance && !showInspections && !showAcademia && (
+        {!showIT && !showMaintenance && !showInspections && (
           <span className="text-xs text-gray-400 italic">No hay módulos asignados</span>
         )}
       </div>

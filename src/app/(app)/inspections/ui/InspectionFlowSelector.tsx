@@ -10,7 +10,6 @@ import { getDivisionCuartosInspectionTemplateAreas } from '@/lib/templates/inspe
 import { getMantenimientoInspectionTemplateAreas } from '@/lib/templates/inspection-mantenimiento-template'
 import { getSistemasInspectionTemplateAreas } from '@/lib/templates/inspection-sistemas-template'
 import { getAlimentosBebidasInspectionTemplateAreas } from '@/lib/templates/inspection-alimentos-bebidas-template'
-import { getAmaLlavesInspectionTemplateAreas } from '@/lib/templates/inspection-ama-llaves-template'
 import { getContabilidadInspectionTemplateAreas } from '@/lib/templates/inspection-contabilidad-template'
 
 type Department = {
@@ -33,7 +32,6 @@ const DEPARTMENTS: Department[] = [
   { id: 'mantenimiento', name: 'MANTENIMIENTO', iconType: 'wrench', color: 'from-orange-500 to-orange-600' },
   { id: 'sistemas', name: 'SISTEMAS', iconType: 'monitor', color: 'from-slate-500 to-slate-700' },
   { id: 'alimentos', name: 'ALIMENTOS Y BEBIDAS', iconType: 'utensils', color: 'from-red-500 to-red-600' },
-  { id: 'llaves', name: 'AMA DE LLAVES', iconType: 'key', color: 'from-pink-500 to-pink-600' },
   { id: 'contabilidad', name: 'CONTABILIDAD', iconType: 'calculator', color: 'from-yellow-500 to-yellow-600' },
   { id: 'marketing', name: 'MARKETING', iconType: 'megaphone', color: 'from-green-500 to-green-600' },
 ]
@@ -249,7 +247,7 @@ export default function InspectionFlowSelector({
     const isMarketing = selectedDepartment.id === 'marketing'
 
     // Lista de módulos implementados
-    const implementedModules = ['rrhh', 'gsh', 'marketing', 'cuartos', 'mantenimiento', 'sistemas', 'alimentos', 'llaves', 'contabilidad']
+    const implementedModules = ['rrhh', 'gsh', 'marketing', 'cuartos', 'mantenimiento', 'sistemas', 'alimentos', 'contabilidad']
     const isImplemented = implementedModules.includes(selectedDepartment.id)
 
     // Si el módulo no está implementado, mostrar mensaje de pendiente
@@ -315,9 +313,6 @@ export default function InspectionFlowSelector({
         break
       case 'alimentos':
         departmentTemplate = getAlimentosBebidasInspectionTemplateAreas()
-        break
-      case 'llaves':
-        departmentTemplate = getAmaLlavesInspectionTemplateAreas()
         break
       case 'contabilidad':
         departmentTemplate = getContabilidadInspectionTemplateAreas()

@@ -37,7 +37,7 @@ export default async function LoginPage() {
             <span className="text-cyan-300">para Hospitalidad</span>
           </h1>
           <p className="mt-6 max-w-xl text-base xl:text-lg leading-relaxed text-slate-300">
-            ERP modular especializado en hoteles: gestión de activos, mantenimiento, inspecciones, capacitación y operaciones bajo
+            ERP modular especializado en hoteles: gestión de activos, mantenimiento, inspecciones, administración y service desk bajo
             un solo sistema corporativo.
           </p>
 
@@ -51,8 +51,7 @@ export default async function LoginPage() {
               <div>
                 <div className="text-sm font-semibold text-white">Operaciones Hoteleras Integradas</div>
                 <div className="mt-1 text-sm text-slate-300">
-                  Gestión completa de todos los departamentos: Housekeeping, Mantenimiento, Alimentos &amp; Bebidas, Front Desk y
-                  Lavandería con control corporativo multisede
+                  Gestión centralizada de inventarios IT y mantenimiento, usuarios, sedes y operación corporativa multisede
                 </div>
               </div>
             </div>
@@ -66,7 +65,7 @@ export default async function LoginPage() {
               <div>
                 <div className="text-sm font-semibold text-white">Planeación y Control Anual</div>
                 <div className="mt-1 text-sm text-slate-300">
-                  Inventarios, mantenimientos preventivos, inspecciones programadas y capacitación con calendarios integrados y
+                  Inventarios, mantenimientos preventivos, inspecciones programadas y seguimiento operativo con calendarios integrados y
                   seguimiento de cumplimiento
                 </div>
               </div>
@@ -121,7 +120,7 @@ export default async function LoginPage() {
           </div>
 
           <div className="mt-6 text-center text-xs text-slate-400">
-            Sistema ERP modular: Assets • Mantenimiento • Inspecciones • Academia • Service Desk
+            Sistema ERP modular: Assets • Mantenimiento • Inspecciones • Administración • Service Desk
           </div>
           <div className="mt-3 flex items-center justify-center gap-2 text-xs text-slate-400">
             <span className="h-2 w-2 rounded-full bg-emerald-500" />

@@ -96,6 +96,8 @@ export async function middleware(request: NextRequest) {
   const isProtectedPath =
     pathname === '/' ||
     pathname.startsWith('/hub') ||
+    pathname.startsWith('/academia') ||
+    pathname.startsWith('/ama-de-llaves') ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/tickets') ||
     pathname.startsWith('/reports') ||
@@ -151,6 +153,8 @@ export async function middleware(request: NextRequest) {
 
   const isAppRoute =
     pathname.startsWith('/hub') ||
+    pathname.startsWith('/academia') ||
+    pathname.startsWith('/ama-de-llaves') ||
     pathname.startsWith('/dashboard') ||
     pathname.startsWith('/tickets') ||
     pathname.startsWith('/reports') ||
@@ -173,6 +177,18 @@ export async function middleware(request: NextRequest) {
 
     if (!sessionIsValid) {
       return NextResponse.redirect(new URL('/login', request.url))
+    }
+
+    if (pathname.startsWith('/academia') || pathname.startsWith('/ama-de-llaves')) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/hub'
+      return NextResponse.redirect(redirectUrl)
+    }
+
+    if (pathname.startsWith('/corporativo/academia')) {
+      const redirectUrl = request.nextUrl.clone()
+      redirectUrl.pathname = '/corporativo/dashboard'
+      return NextResponse.redirect(redirectUrl)
     }
 
     // Admin routes: diferentes niveles de acceso

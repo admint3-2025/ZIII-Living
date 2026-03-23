@@ -267,7 +267,6 @@ export default function AppShellClient({
     if (pathname.startsWith('/politicas')) return 'politicas'
     if (pathname.startsWith('/corporativo')) return 'corporativo'
     if (pathname.startsWith('/inspections')) return 'corporativo' // Inspecciones RRHH
-    if (pathname.startsWith('/academia')) return 'academia'
     // Reportes: mantener en `Administración` para que el sidebar no cambie
     // al entrar a reportes específicos (IT/Mantenimiento). El centro
     // de reportes debe permanecer bajo el contexto de admin visual.
@@ -281,7 +280,6 @@ export default function AppShellClient({
     )
       return 'helpdesk'
     if (pathname.startsWith('/mantenimiento')) return 'mantenimiento'
-    if (pathname.startsWith('/ama-de-llaves')) return 'operaciones'
     return null
   }, [pathname])
 
@@ -383,12 +381,6 @@ export default function AppShellClient({
         ],
       },
     ],
-    operaciones: [
-      {
-        group: 'Operaciones',
-        items: [{ id: 'ops_home', label: 'Tablero', icon: 'Dashboard', href: '/mantenimiento' }],
-      },
-    ],
     corporativo: [
       {
         group: 'Corporativo',
@@ -396,17 +388,7 @@ export default function AppShellClient({
           { id: 'corp_home', label: 'Dashboard', icon: 'Dashboard', href: '/corporativo/dashboard' },
           { id: 'corp_inspecciones', label: 'Inspecciones', icon: 'ShieldCheck', href: '/corporativo/inspecciones' },
           { id: 'corp_inbox', label: 'Bandeja Inspecciones', icon: 'BarChart', href: '/inspections/inbox' },
-          { id: 'corp_academia', label: 'Admin Academia', icon: 'GraduationCap', href: '/corporativo/academia/admin' },
           { id: 'corp_politicas', label: 'Admin Políticas', icon: 'Book', href: '/corporativo/politicas/admin' },
-        ],
-      },
-    ],
-    academia: [
-      {
-        group: 'Academia',
-        items: [
-          { id: 'academia_catalog', label: 'Catálogo', icon: 'GraduationCap', href: '/academia' },
-          { id: 'academia_progress', label: 'Mi Progreso', icon: 'BarChart', href: '/academia/mi-progreso' },
         ],
       },
     ],
@@ -433,64 +415,6 @@ export default function AppShellClient({
   }
 
   const collapsibleByModule: Record<string, { group: string; menus: CollapsibleMenu[] }[]> = {
-    operaciones: [
-      {
-        group: 'Front Office',
-        menus: [
-          {
-            id: 'recepcion',
-            label: 'Recepción',
-            icon: 'Bell',
-            items: [
-              { id: 'fo_desk', label: 'Front Desk', icon: 'Bell', href: '/mantenimiento#fo_desk', disabled: true },
-              { id: 'fo_concierge', label: 'Concierge', icon: 'Bell', href: '/mantenimiento#fo_concierge', disabled: true },
-            ],
-          },
-          {
-            id: 'ventas',
-            label: 'Ventas',
-            icon: 'BarChart',
-            items: [
-              { id: 'sales_res', label: 'Reservas', icon: 'BarChart', href: '/mantenimiento#sales_res', disabled: true },
-              { id: 'sales_groups', label: 'Grupos', icon: 'BarChart', href: '/mantenimiento#sales_groups', disabled: true },
-            ],
-          },
-        ],
-      },
-      {
-        group: 'Operación & Mantenimiento',
-        menus: [
-          {
-            id: 'ingenieria',
-            label: 'Ingeniería',
-            icon: 'Wrench',
-            items: [
-              { id: 'eng_tickets', label: 'Ticketera', icon: 'Wrench', href: '/mantenimiento#eng_tickets', disabled: true },
-              { id: 'eng_plan', label: 'Plan Anual', icon: 'Wrench', href: '/mantenimiento#eng_plan', disabled: true },
-            ],
-          },
-          {
-            id: 'housekeeping',
-            label: 'Ama de Llaves',
-            icon: 'Bed',
-            items: [
-              { id: 'hk_rooms', label: 'Tablero Habitaciones', icon: 'Bed', href: '/ama-de-llaves/tablero-habitaciones' },
-              { id: 'hk_plan', label: 'Plan Anual & Proyectos', icon: 'Calendar', href: '/ama-de-llaves/plan-anual' },
-              { id: 'hk_laundry', label: 'Ropería', icon: 'Bed', href: '/ama-de-llaves/roperia' },
-            ],
-          },
-          {
-            id: 'ayb',
-            label: 'A y B',
-            icon: 'Utensils',
-            items: [
-              { id: 'fb_pos', label: 'Puntos Venta', icon: 'Utensils', href: '/mantenimiento#fb_pos', disabled: true },
-              { id: 'fb_kitchen', label: 'Cocina', icon: 'Utensils', href: '/mantenimiento#fb_kitchen', disabled: true },
-            ],
-          },
-        ],
-      },
-    ],
     helpdesk: [],
     corporativo: [],
     politicas: [],

@@ -6,9 +6,7 @@ export type HubVisibleModules = {
   'it-helpdesk'?: boolean
   'mantenimiento'?: boolean
   'inspecciones-rrhh'?: boolean
-  'academia'?: boolean
   'beo'?: boolean
-  'ama-de-llaves'?: boolean
   [key: string]: boolean | undefined
 }
 

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-type HubModuleId = 'it-helpdesk' | 'mantenimiento' | 'corporativo' | 'academia' | 'administracion'
+type HubModuleId = 'it-helpdesk' | 'mantenimiento' | 'corporativo' | 'administracion'
 
 interface HubModuleSelectorProps {
   initialModules: Record<HubModuleId, boolean>
@@ -26,12 +26,6 @@ const modulesList: Array<{ id: HubModuleId; label: string; description: string; 
     label: 'CORPORATIVO', 
     description: 'Gestión Operativa: Inspecciones, Calidad y BEO',
     icon: '📊'
-  },
-  { 
-    id: 'academia', 
-    label: 'ACADEMIA', 
-    description: 'Cursos, Capacitación y Desarrollo Profesional',
-    icon: '🎓'
   },
   { 
     id: 'administracion', 
