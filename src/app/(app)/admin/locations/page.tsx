@@ -21,8 +21,8 @@ export default async function AdminLocationsPage() {
               </svg>
             </div>
             <div>
-              <h1 className="text-lg font-bold text-white">Ubicaciones / Sedes</h1>
-              <p className="text-emerald-100 text-[11px]">Gestión de ciudades y empresas</p>
+              <h1 className="text-lg font-bold text-white">Propiedades Residenciales</h1>
+              <p className="text-emerald-100 text-[11px]">Gestión de conjuntos, condominios y fraccionamientos</p>
             </div>
           </div>
         </div>

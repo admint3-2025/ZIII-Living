@@ -85,9 +85,9 @@ export default function LocationCreateForm() {
     <div className="card">
       <div className="p-4 space-y-3">
         <div>
-          <div className="text-sm font-semibold text-gray-900">Crear ubicación</div>
+          <div className="text-sm font-semibold text-gray-900">Registrar propiedad</div>
           <div className="text-[11px] text-gray-600 mt-0.5">
-            Registra ciudades o empresas para segmentar tickets y reportes.
+            Registra conjuntos residenciales, condominios o fraccionamientos. Cada propiedad agrupa sus unidades, finanzas y control de acceso.
           </div>
         </div>
 
@@ -98,7 +98,7 @@ export default function LocationCreateForm() {
               className="input mt-1"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Sede Central Monterrey"
+              placeholder="Torres Punta Norte, Residencial El Roble..."
               autoComplete="off"
             />
           </div>
@@ -116,22 +116,24 @@ export default function LocationCreateForm() {
           </div>
 
           <div className="sm:col-span-2">
-            <label className="block text-[11px] font-medium text-gray-700">Tipo de Negocio *</label>
+            <label className="block text-[11px] font-medium text-gray-700">Tipo de Propiedad *</label>
             <select
               className="input mt-1"
               value={businessType}
               onChange={(e) => setBusinessType(e.target.value as any)}
             >
-              <option value="hotel">🏨 Propiedad Hotelera</option>
-              <option value="corporate">🏢 Corporativo / Oficina Central</option>
-              <option value="office">🏢 Oficina</option>
-              <option value="warehouse">🏭 Almacén / Bodega</option>
-              <option value="other">💼 Otro</option>
+              <option value="hotel">🏢 Condominio / Torre</option>
+              <option value="corporate">🏘️ Conjunto Residencial</option>
+              <option value="office">🏛️ Casa Club / Amenidades</option>
+              <option value="warehouse">🌳 Fraccionamiento</option>
+              <option value="other">📋 Otro</option>
             </select>
             <p className="mt-1 text-[10px] text-gray-500">
-              {businessType === 'hotel' && 'Aparece en selectores de inspecciones hoteleras'}
-              {businessType === 'corporate' && 'NO aparece en selectores de hoteles (solo reportes corporativos)'}
-              {businessType !== 'hotel' && businessType !== 'corporate' && 'Uso administrativo general'}
+              {businessType === 'hotel' && 'Edificio con múltiples departamentos en una sola torre o cuerpo.'}
+              {businessType === 'corporate' && 'Desarrollo con varias torres o manzanas bajo una misma administración.'}
+              {businessType === 'office' && 'Instalación de amenidades y salones comunes sin unidades habitacionales.'}
+              {businessType === 'warehouse' && 'Desarrollo horizontal con casas o lotes individuales.'}
+              {businessType === 'other' && 'Otro tipo de propiedad bajo administración residencial.'}
             </p>
           </div>
 
@@ -203,12 +205,12 @@ export default function LocationCreateForm() {
           </div>
 
           <div>
-            <label className="block text-[11px] font-medium text-gray-700">Responsable</label>
+            <label className="block text-[11px] font-medium text-gray-700">Administrador de la propiedad</label>
             <input
               className="input mt-1"
               value={managerName}
               onChange={(e) => setManagerName(e.target.value)}
-              placeholder="Gerente de Sede"
+              placeholder="Lic. García — Administración"
               autoComplete="off"
             />
           </div>
@@ -220,13 +222,13 @@ export default function LocationCreateForm() {
 
         {result ? (
           <div className="rounded-md border border-green-200 bg-green-50 px-2.5 py-2 text-xs text-green-800">
-            Ubicación creada: <span className="font-semibold">{result.name}</span> ({result.code})
+            Propiedad registrada: <span className="font-semibold">{result.name}</span> ({result.code})
           </div>
         ) : null}
 
         <div className="flex justify-end">
           <button type="button" className="btn btn-primary" onClick={submit} disabled={busy}>
-            {busy ? 'Procesando…' : 'Crear'}
+            {busy ? 'Procesando…' : 'Registrar propiedad'}
           </button>
         </div>
       </div>

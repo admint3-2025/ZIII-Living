@@ -114,8 +114,8 @@ export default function LocationList() {
   async function toggleActive(loc: LocationRow) {
     const nextActive = !loc.is_active
     const msg = nextActive
-      ? `¿Reactivar ubicación ${loc.name}?`
-      : `¿Desactivar ${loc.name}? No aparecerá en los dropdowns.`
+      ? `¿Reactivar la propiedad ${loc.name}?`
+      : `¿Desactivar ${loc.name}? No aparecerá en los selectores del sistema.`
 
     if (!confirm(msg)) return
 
@@ -141,7 +141,7 @@ export default function LocationList() {
   }
 
   async function deleteLocation(loc: LocationRow) {
-    if (!confirm(`¿Eliminar ubicación ${loc.name}? (Solo si no tiene usuarios/tickets asociados)`)) return
+    if (!confirm(`¿Eliminar la propiedad ${loc.name}? Solo es posible si no tiene unidades, residentes ni tickets asociados.`)) return
 
     setError(null)
     setBusy(true)
@@ -165,8 +165,8 @@ export default function LocationList() {
       <div className="p-4 pb-0">
         <div className="flex items-center justify-between gap-2.5">
           <div>
-            <div className="text-sm font-semibold text-gray-900">Listado de ubicaciones</div>
-            <div className="text-[11px] text-gray-600 mt-0.5">Administra las sedes activas del sistema.</div>
+            <div className="text-sm font-semibold text-gray-900">Propiedades registradas</div>
+            <div className="text-[11px] text-gray-600 mt-0.5">Conjuntos residenciales activos en el sistema.</div>
           </div>
           <button type="button" className="btn btn-secondary" onClick={load} disabled={busy}>
             {busy ? 'Actualizando…' : 'Actualizar'}
@@ -217,19 +217,19 @@ export default function LocationList() {
                   <td className="px-3 py-2">
                     {editing ? (
                       <select className="input text-xs" value={editBusinessType} onChange={(e) => setEditBusinessType(e.target.value as any)}>
-                        <option value="hotel">🏨 Hotel</option>
-                        <option value="corporate">🏢 Corporativo</option>
-                        <option value="office">🏢 Oficina</option>
-                        <option value="warehouse">🏭 Almacén</option>
-                        <option value="other">💼 Otro</option>
+                        <option value="hotel">� Condominio / Torre</option>
+                        <option value="corporate">🏘️ Conjunto Residencial</option>
+                        <option value="office">🏛️ Casa Club / Amenidades</option>
+                        <option value="warehouse">🌳 Fraccionamiento</option>
+                        <option value="other">📋 Otro</option>
                       </select>
                     ) : (
                       <div className="text-xs">
-                        {loc.business_type === 'hotel' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-blue-50 border border-blue-200 text-blue-700 text-[10px]">🏨 Hotel</span>}
-                        {loc.business_type === 'corporate' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-purple-50 border border-purple-200 text-purple-700 text-[10px]">🏢 Corporativo</span>}
-                        {loc.business_type === 'office' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-slate-50 border border-slate-200 text-slate-700 text-[10px]">🏢 Oficina</span>}
-                        {loc.business_type === 'warehouse' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-orange-50 border border-orange-200 text-orange-700 text-[10px]">🏭 Almacén</span>}
-                        {loc.business_type === 'other' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-gray-50 border border-gray-200 text-gray-700 text-[10px]">💼 Otro</span>}
+                        {loc.business_type === 'hotel' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-blue-50 border border-blue-200 text-blue-700 text-[10px]">� Condominio</span>}
+                        {loc.business_type === 'corporate' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-violet-50 border border-violet-200 text-violet-700 text-[10px]">🏘️ Conjunto Residencial</span>}
+                        {loc.business_type === 'office' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-teal-50 border border-teal-200 text-teal-700 text-[10px]">🏛️ Casa Club</span>}
+                        {loc.business_type === 'warehouse' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-green-50 border border-green-200 text-green-700 text-[10px]">🌳 Fraccionamiento</span>}
+                        {loc.business_type === 'other' && <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-gray-50 border border-gray-200 text-gray-700 text-[10px]">📋 Otro</span>}
                       </div>
                     )}
                   </td>
@@ -254,7 +254,7 @@ export default function LocationList() {
                       <div className="space-y-1">
                         <input className="input text-xs" value={editPhone} onChange={(e) => setEditPhone(e.target.value)} placeholder="Teléfono" />
                         <input className="input text-xs" type="email" value={editEmail} onChange={(e) => setEditEmail(e.target.value)} placeholder="Email" />
-                        <input className="input text-xs" value={editManager} onChange={(e) => setEditManager(e.target.value)} placeholder="Responsable" />
+                        <input className="input text-xs" value={editManager} onChange={(e) => setEditManager(e.target.value)} placeholder="Administrador" />
                       </div>
                     ) : (
                       <div className="text-gray-700 text-xs">
@@ -320,7 +320,7 @@ export default function LocationList() {
             {sorted.length === 0 ? (
               <tr>
                 <td className="px-3 py-8 text-center text-gray-500 text-xs" colSpan={7}>
-                  {busy ? 'Cargando…' : 'No hay ubicaciones registradas'}
+                  {busy ? 'Cargando…' : 'No hay propiedades registradas. Crea la primera propiedad residencial.'}
                 </td>
               </tr>
             ) : null}
