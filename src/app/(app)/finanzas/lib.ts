@@ -69,7 +69,20 @@ export async function getFinanceSession(requireManager = false): Promise<Finance
   const isManager = canManageFinances(profile as any)
   if (requireManager && !isManager) redirect('/finanzas')
 
-  const propertyId = (profile as any).property_id || (profile as any).location_id || null
+  let propertyId = (profile as any).property_id || (profile as any).location_id || null
+
+  if (!propertyId && ['admin', 'corporate_admin'].includes((profile as any).role)) {
+    const { data: locations } = await supabase
+      .from('locations')
+      .select('id')
+      .eq('is_active', true)
+      .order('name')
+      .limit(2)
+
+    if ((locations || []).length === 1) {
+      propertyId = locations?.[0]?.id || null
+    }
+  }
 
   return {
     supabase,

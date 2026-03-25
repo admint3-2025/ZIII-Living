@@ -1,25 +1,12 @@
-import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { getSafeServerUser } from '@/lib/supabase/server'
-import { createSupabaseAdminClient } from '@/lib/supabase/admin'
-import { canManageResidents, canViewResidents } from '@/lib/permissions'
+import { formatCurrency, getResidentsOverview, getResidentsSession } from './lib'
 
 export const dynamic = 'force-dynamic'
 
 export default async function ResidentesPage() {
-  const user = await getSafeServerUser()
-  if (!user) redirect('/login')
-
-  const supabase = createSupabaseAdminClient()
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single()
-
-  if (!profile || !canViewResidents(profile as any)) redirect('/hub')
-
-  const isManager = canManageResidents(profile as any)
+  const { propertyId, isManager } = await getResidentsSession()
+  const overview = await getResidentsOverview(propertyId)
+  const occupancy = overview.units > 0 ? Math.round((overview.occupiedUnits / overview.units) * 100) : 0
 
   const subModules = [
     {
@@ -106,13 +93,13 @@ export default async function ResidentesPage() {
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
             <div className="rounded-2xl border border-white/80 bg-white/85 p-5 shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-slate-400">Nivel de ocupación</p>
-              <p className="mt-2 text-3xl font-semibold text-slate-950">0%</p>
-              <p className="mt-1 text-sm text-slate-500">Sin padrón cargado. Ideal para arrancar limpio y con estructura correcta.</p>
+              <p className="mt-2 text-3xl font-semibold text-slate-950">{occupancy}%</p>
+              <p className="mt-1 text-sm text-slate-500">{overview.occupiedUnits} de {overview.units} unidades ya tienen residentes vinculados.</p>
             </div>
             <div className="rounded-2xl border border-violet-200 bg-violet-600 p-5 text-white shadow-sm">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-100">Operación</p>
-              <p className="mt-2 text-2xl font-semibold">Listo para poblar</p>
-              <p className="mt-1 text-sm text-violet-100">La primera carga debe iniciar por propiedades y unidades.</p>
+              <p className="mt-2 text-2xl font-semibold">{propertyId ? 'Operación activa' : 'Pendiente de asignación'}</p>
+              <p className="mt-1 text-sm text-violet-100">{propertyId ? `Cuota base actual: ${formatCurrency(overview.monthlyFees)}` : 'La primera carga debe iniciar por propiedades y unidades.'}</p>
             </div>
           </div>
         </div>
@@ -120,9 +107,9 @@ export default async function ResidentesPage() {
 
       <section className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {[
-          { label: 'Total Unidades', value: '0', icon: '🏠', accent: 'bg-blue-50 text-blue-700 border-blue-100' },
-          { label: 'Residentes Activos', value: '0', icon: '👥', accent: 'bg-emerald-50 text-emerald-700 border-emerald-100' },
-          { label: 'Cuentas Morosas', value: '0', icon: '⚠️', accent: 'bg-amber-50 text-amber-700 border-amber-100' },
+          { label: 'Total Unidades', value: String(overview.units), icon: '🏠', accent: 'bg-blue-50 text-blue-700 border-blue-100' },
+          { label: 'Residentes Activos', value: String(overview.residents), icon: '👥', accent: 'bg-emerald-50 text-emerald-700 border-emerald-100' },
+          { label: 'Cuentas Morosas', value: String(overview.delinquent), icon: '⚠️', accent: 'bg-amber-50 text-amber-700 border-amber-100' },
         ].map((stat) => (
           <article key={stat.label} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_16px_36px_-28px_rgba(15,23,42,0.22)]">
             <div className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${stat.accent}`}>
@@ -130,7 +117,7 @@ export default async function ResidentesPage() {
               {stat.label}
             </div>
             <p className="mt-5 text-4xl font-semibold tracking-tight text-slate-950">{stat.value}</p>
-            <p className="mt-1 text-sm text-slate-500">Se actualizará cuando el padrón residencial esté alimentado.</p>
+            <p className="mt-1 text-sm text-slate-500">Vista consolidada del padrón y la cobranza residencial.</p>
           </article>
         ))}
       </section>
