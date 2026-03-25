@@ -427,56 +427,49 @@ export default async function HubPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8 lg:py-10">
-        <section className="relative overflow-hidden rounded-3xl border border-slate-800/80 bg-[linear-gradient(135deg,rgba(15,23,42,0.96)_0%,rgba(30,41,59,0.96)_45%,rgba(15,23,42,0.98)_100%)] p-6 shadow-[0_22px_60px_-36px_rgba(0,0,0,0.65)] lg:p-7">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.18),_transparent_26%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.12),_transparent_24%)]" />
-          <div className="relative grid gap-6 xl:grid-cols-[1.2fr,0.8fr] xl:items-end">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-500/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-violet-200">
-                Centro de operación
+        <section className="relative overflow-hidden rounded-3xl border border-slate-800/80 bg-[linear-gradient(135deg,rgba(15,23,42,0.94)_0%,rgba(30,41,59,0.94)_55%,rgba(15,23,42,0.98)_100%)] p-5 shadow-[0_22px_60px_-36px_rgba(0,0,0,0.65)] lg:p-6">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(99,102,241,0.14),_transparent_24%),radial-gradient(circle_at_bottom_right,_rgba(16,185,129,0.10),_transparent_24%)]" />
+          <div className="relative space-y-4">
+            <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.26em] text-slate-500">Hub principal</p>
+                <h1 className="mt-1 text-2xl font-semibold tracking-tight text-white">Accesos y contexto operativo</h1>
               </div>
-              <div className="space-y-2">
-                <h1 className="max-w-3xl text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                  Opera todo el ecosistema desde una sola capa clara, rápida y sin ruido repetido.
-                </h1>
-                <p className="max-w-2xl text-sm leading-6 text-slate-300 sm:text-base">
-                  Tus módulos habilitados, accesos operativos y actividad reciente se concentran aquí con prioridad en la
-                  navegación diaria, no en repetir los datos de sesión que ya viven en el encabezado.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-slate-800/80 bg-slate-950/35 p-4 backdrop-blur-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Resumen operativo</p>
-                <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm text-slate-300">
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1">
-                    <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                    {accessibleModules.length} módulos habilitados
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1">
-                    <span className="h-2 w-2 rounded-full bg-sky-400" />
-                    {recentActivities?.length || 0} movimientos recientes
-                  </span>
-                  <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1">
-                    <span className="h-2 w-2 rounded-full bg-violet-400" />
-                    {sessionContext || 'Sesión activa lista para operar'}
-                  </span>
-                </div>
+              <div className="flex flex-wrap items-center gap-2 text-sm text-slate-300">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                  {accessibleModules.length} módulos
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">
+                  <span className="h-2 w-2 rounded-full bg-sky-400" />
+                  {recentActivities?.length || 0} movimientos
+                </span>
+                <span className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">
+                  <span className="h-2 w-2 rounded-full bg-violet-400" />
+                  {sessionContext || 'Sesión activa'}
+                </span>
               </div>
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-3 xl:grid-cols-1">
-              <div className="rounded-2xl border border-slate-700/80 bg-slate-900/65 p-4 backdrop-blur-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Cobertura del hub</p>
-                <p className="mt-2 text-2xl font-semibold text-white">{accessibleModules.length}</p>
-                <p className="mt-1 text-sm text-slate-400">Accesos directos disponibles según permisos y preferencias visibles.</p>
+            <div className="grid gap-3 md:grid-cols-3">
+              <div className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4 backdrop-blur-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Cobertura</p>
+                <div className="mt-2 flex items-end justify-between gap-3">
+                  <p className="text-2xl font-semibold text-white">{accessibleModules.length}</p>
+                  <p className="text-xs text-slate-400">Accesos visibles</p>
+                </div>
               </div>
-              <div className="rounded-2xl border border-slate-700/80 bg-slate-900/65 p-4 backdrop-blur-sm">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Actividad reciente</p>
-                <p className="mt-2 text-2xl font-semibold text-white">{recentActivities?.length || 0}</p>
-                <p className="mt-1 text-sm text-slate-400">Movimientos detectados en tu bitácora más reciente.</p>
+              <div className="rounded-2xl border border-slate-700/80 bg-slate-900/60 p-4 backdrop-blur-sm">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-500">Actividad</p>
+                <div className="mt-2 flex items-end justify-between gap-3">
+                  <p className="text-2xl font-semibold text-white">{recentActivities?.length || 0}</p>
+                  <p className="text-xs text-slate-400">Últimos movimientos</p>
+                </div>
               </div>
               <div className="rounded-2xl border border-violet-500/20 bg-violet-500/10 p-4">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-200">Enfoque</p>
-                <p className="mt-2 text-lg font-semibold text-white">{accessibleModules[0]?.name || 'Inicio'}</p>
-                <p className="mt-1 text-sm text-violet-100/80">El primer acceso visible marca tu ruta principal de trabajo.</p>
+                <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-violet-200">Enfoque actual</p>
+                <p className="mt-2 text-base font-semibold text-white">{accessibleModules[0]?.name || 'Inicio'}</p>
+                <p className="mt-1 text-xs text-violet-100/80">Ruta prioritaria para esta sesión.</p>
               </div>
             </div>
           </div>
